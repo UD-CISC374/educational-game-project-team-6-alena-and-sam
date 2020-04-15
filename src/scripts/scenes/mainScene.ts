@@ -1,4 +1,5 @@
 import ExampleObject from '../objects/exampleObject';
+import Dragon from '../objects/dragon';
 
 export default class MainScene extends Phaser.Scene {
   private exampleObject: ExampleObject;
@@ -9,6 +10,7 @@ export default class MainScene extends Phaser.Scene {
   private Savings;
   private Checking;
   private moneyBar;
+  dragon: Phaser.GameObjects.Sprite;
 
 
 
@@ -19,6 +21,8 @@ export default class MainScene extends Phaser.Scene {
   create() {
     this.exampleObject = new ExampleObject(this, 0, 0);
     this.moneyBar = this.add.bitmapText(0, 0, "pixelFont", "Testing", 16);
+    this.dragon = new Dragon(this, "dragon", this.scale.width/8, this.scale.height/1.3);
+    this.dragon.scale = 0.5;
   }
 
   moveFunds(accountA, accountB, amount){
