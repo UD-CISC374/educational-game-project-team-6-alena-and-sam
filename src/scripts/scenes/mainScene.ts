@@ -1,5 +1,6 @@
 import ExampleObject from '../objects/exampleObject';
 import Dragon from '../objects/dragon';
+import financialAccount from '../objects/financialAccount';
 
 export default class MainScene extends Phaser.Scene {
   private exampleObject: ExampleObject;
@@ -8,9 +9,10 @@ export default class MainScene extends Phaser.Scene {
   private fundsStockB;
   private fundsStockC;
   private Savings;
-  private Checking;
+  //private Checking;
   private moneyBar;
   dragon: Phaser.GameObjects.Sprite;
+  checking: financialAccount;
 
 
 
@@ -23,6 +25,8 @@ export default class MainScene extends Phaser.Scene {
     this.moneyBar = this.add.bitmapText(0, 0, "pixelFont", "Testing", 16);
     this.dragon = new Dragon(this, "dragon", this.scale.width/8, this.scale.height/1.3);
     this.dragon.scale = 0.5;
+    this.checking = new financialAccount(this, this.scale.width/8, this.scale.height/1.3, 10, 0.1);
+    this.add.rectangle(this.scale.width/2, this.scale.height/2, 50, 50);
   }
 
   moveFunds(accountA, accountB, amount){
@@ -32,12 +36,12 @@ export default class MainScene extends Phaser.Scene {
     }
   }
 
-  addFunds(amount){
-    this.Checking += amount;
+  addFunds(amount: number){
+    this.checking.add(amount);
   }
 
-  buyFrog(amount){
-    this.Checking -= amount;
+  buyFrog(amount: number){
+    this.checking.remove(amount);
   }
 
   update() {
