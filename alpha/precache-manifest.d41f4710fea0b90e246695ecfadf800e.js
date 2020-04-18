@@ -48,19 +48,23 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-6-alena-and-sam/alphaassets/images/dragon_boi.png"
   },
   {
+    "revision": "4fcf9ce53de642d871dca40e4365dec7",
+    "url": "/educational-game-project-team-6-alena-and-sam/alphaassets/moon_sun_star.png"
+  },
+  {
     "revision": "53cefca2a0f75654486b180949686165",
     "url": "/educational-game-project-team-6-alena-and-sam/alphafavicon.ico"
   },
   {
-    "revision": "89062b96a0c72172824e",
-    "url": "/educational-game-project-team-6-alena-and-sam/alphagen.main.65dc8a1868f779511356.bundle.js"
+    "revision": "f14b4bfec982462389b7",
+    "url": "/educational-game-project-team-6-alena-and-sam/alphagen.main.545f27ffe6fc2c7e298b.bundle.js"
   },
   {
     "revision": "5e69403aa42e950fedff",
     "url": "/educational-game-project-team-6-alena-and-sam/alphagen.vendors.0805bb80903235d40eaf.bundle.js"
   },
   {
-    "revision": "2d464453ddd834ee68e12639d806a431",
+    "revision": "05183c6233f6b5ef6cb1c79c435a64dd",
     "url": "/educational-game-project-team-6-alena-and-sam/alphaindex.html"
   },
   {
