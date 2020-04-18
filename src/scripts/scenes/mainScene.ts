@@ -14,6 +14,8 @@ export default class MainScene extends Phaser.Scene {
   private StockArrowUp;
   private StockArrowDown;
   private background;
+  private day;
+  private dayButton;
 
 
   dragon: Phaser.GameObjects.Sprite;
@@ -29,6 +31,11 @@ export default class MainScene extends Phaser.Scene {
     this.background.setOrigin(0, 0);
     this.background.scale = 0.65;
 
+    this.dayButton = this.add.image(300, 300, "day");
+    this.add.text(300, 300, "next day");
+    this.dayButton.scale = 0.1;
+    this.dayButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.nextDay(this, this.dayButton) );
+    this.day = 0;
 
     this.funds401k = 0;
     this.fundsStock = 0;
@@ -102,8 +109,16 @@ export default class MainScene extends Phaser.Scene {
     this.BarChecking.text = "Checking: $"+ this.Checking;
     this.Bar401.text = "401K: $"+ this.funds401k;
     this.BarA.text = "Stock: $" + this.fundsStock;
-
   }
+
+  nextDay(pointer, gameobject){
+    this.day += 1;
+    this.funds401k = Phaser.Math.RoundTo(((1.05)*this.funds401k), -2);
+    let randNum = Phaser.Math.Between(75, 150)/100;
+    this.fundsStock = Phaser.Math.RoundTo((randNum*this.fundsStock), -2);
+    this.updateAccounts();
+  }
+
 
 
   update() {
