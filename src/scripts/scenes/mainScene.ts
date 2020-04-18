@@ -13,6 +13,7 @@ export default class MainScene extends Phaser.Scene {
   private InvestArrowDown;
   private StockArrowUp;
   private StockArrowDown;
+  private background;
 
 
   dragon: Phaser.GameObjects.Sprite;
@@ -24,31 +25,38 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    this.background = this.add.image(0, 0, "cave");
+    this.background.setOrigin(0, 0);
+    this.background.scale = 0.65;
+
+
     this.funds401k = 0;
     this.fundsStock = 0;
     this.Checking = 100;
 
+    this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "401K: $"+ this.funds401k, 16);
+    this.BarA = this.add.bitmapText(125, 0, "pixelFont", "Stock : $"+ this.fundsStock, 16);
+    this.BarChecking = this.add.bitmapText(225, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
 
-    this.Bar401 = this.add.bitmapText(0, 0, "pixelFont", "   401K: $"+ this.funds401k, 16);
-    this.BarA = this.add.bitmapText(75, 0, "pixelFont", "Stock : $"+ this.fundsStock, 16);
-    this.BarChecking = this.add.bitmapText(375, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
-
-    this.InvestArrowUp = this.add.sprite(100, 40, "arrow");
+    this.InvestArrowUp = this.add.sprite(50, 40, "arrow");
     this.InvestArrowUp.scale = 0.05;
     this.InvestArrowUp.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buttonMoveAdd401K(this, this.InvestArrowUp));
+    this.InvestArrowUp.rotation = 1.57;
 
-    this.InvestArrowDown = this.add.sprite(200, 40, "arrow");
+    this.InvestArrowDown = this.add.sprite(50, 80, "arrow");
     this.InvestArrowDown.scale = 0.05;
     this.InvestArrowDown.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buttonMoveMinus401K(this, this.InvestArrowDown) );
+    this.InvestArrowDown.rotation = 4.71;
 
-    this.StockArrowDown = this.add.sprite(200, 80, "arrow");
+    this.StockArrowDown = this.add.sprite(150, 80, "arrow");
     this.StockArrowDown.scale = 0.05;
     this.StockArrowDown.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buttonMoveMinusStock(this, this.StockArrowDown) );
+    this.StockArrowDown.rotation = 4.71;
 
-    this.StockArrowUp = this.add.sprite(100, 80, "arrow");
+    this.StockArrowUp = this.add.sprite(150, 40, "arrow");
     this.StockArrowUp.scale = 0.05;
     this.StockArrowUp.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buttonMoveAddStock(this, this.StockArrowDown) );
-
+    this.StockArrowUp.rotation = 1.57;
 
     this.dragon = new Dragon(this, "dragon", this.scale.width/8, this.scale.height/1.3);
     this.dragon.scale = 0.5;
