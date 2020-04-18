@@ -2,6 +2,11 @@
 
 Template for designing educational Phaser Games
 
+# Citations
+//Arrows by Unsolved Rubiks on opengameart.org
+//Cave Background by Écrivain on opengameart.org
+
+
 # Important Files
 
 These files are for coding your game:
