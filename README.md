@@ -6,6 +6,8 @@ Template for designing educational Phaser Games
 //Arrows by Unsolved Rubiks on opengameart.org
 //Cave Background by Écrivain on opengameart.org
 //Sun by dimonija on opengameart.org
+//frog spirit by Snabisch on opengameart.org
+//coin by irmirx on opengameart.org
 
 # Important Files
 
