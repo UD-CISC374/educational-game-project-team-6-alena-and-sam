@@ -17,6 +17,7 @@ export default class MainScene extends Phaser.Scene {
   private day;
   private dayButton;
   private coin;
+  private StockUpisHeld: boolean;
   tutorial: Array<Phaser.GameObjects.Text>;
   tutorialCount = 0;
 
@@ -30,6 +31,8 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    this.StockUpisHeld = false;
+
     this.background = this.add.image(0, 0, "cave");
     this.background.setOrigin(0, 0);
     this.background.scale = 0.65;
@@ -50,29 +53,38 @@ export default class MainScene extends Phaser.Scene {
 
     this.InvestArrowUp = this.add.sprite(50, 40, "arrow");
     this.InvestArrowUp.scale = 0.05;
-    this.InvestArrowUp.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buttonMoveAddSavingsAccount(this, this.InvestArrowUp));
+    this.InvestArrowUp.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseSavings(this, this.InvestArrowUp))
+    .on('pointerup', () => this.stopRaiseSavings(this, this.InvestArrowUp));
     this.InvestArrowUp.rotation = 1.57;
 
     this.InvestArrowDown = this.add.sprite(50, 80, "arrow");
     this.InvestArrowDown.scale = 0.05;
-    this.InvestArrowDown.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buttonMoveMinusSavingsAccount(this, this.InvestArrowDown) );
+    this.InvestArrowDown.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startLowerSavings(this, this.InvestArrowDown) )
+    .on('pointerup', () => this.stopLowerSavings(this, this.InvestArrowDown));
     this.InvestArrowDown.rotation = 4.71;
 
     this.StockArrowDown = this.add.sprite(150, 80, "arrow");
     this.StockArrowDown.scale = 0.05;
-    this.StockArrowDown.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buttonMoveMinusStock(this, this.StockArrowDown) );
+    this.StockArrowDown.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startLowerStock(this, this.StockArrowDown) )
+    .on('pointerup', () => this.stopLowerStock(this, this.StockArrowUp));
     this.StockArrowDown.rotation = 4.71;
 
     this.StockArrowUp = this.add.sprite(150, 40, "arrow");
     this.StockArrowUp.scale = 0.05;
-    this.StockArrowUp.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buttonMoveAddStock(this, this.StockArrowDown) );
+    this.StockArrowUp.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseStock(this, this.StockArrowUp) )
+    .on('pointerup', () => this.stopRaiseStock(this, this.StockArrowUp));
+
     this.StockArrowUp.rotation = 1.57;
 
     this.dragon = new Dragon(this, "dragon", this.scale.width/8, this.scale.height/1.3);
     this.dragon.scale = 0.5;
 
     this.add.image(this.scale.width/2 + this.scale.width/3 + 20, this.scale.height/2 + this.scale.height/3 - 20, "jesterFrog");
-    this.add.text(this.scale.width/2 + this.scale.width/4 + 10, this.scale.height/2 + this.scale.height/9 + 3, "Price: $50,000");
+    this.add.text(this.scale.width/2 + this.scale.width/4 + 10, this.scale.height/2 + this.scale.height/9 + 3, "Price: $5,000");
     this.add.text(this.scale.width/2 + this.scale.width/4 + 25, this.scale.height/2 + this.scale.height/3 + 25, "JESTER FROG");
 
     this.anims.create({
@@ -110,8 +122,8 @@ export default class MainScene extends Phaser.Scene {
   }
 
   buyFrog(pointer, gameObject){
-    if(this.fundsStock >= 50000){
-      this.fundsStock -= 50000;
+    if(this.fundsStock >= 5000){
+      this.fundsStock -= 5000;
       this.updateAccounts();
       this.tutorialCount += 1;
       this.stepTutorial(this.tutorialCount);
@@ -119,15 +131,68 @@ export default class MainScene extends Phaser.Scene {
   }
 
 
-  buttonMoveAddSavingsAccount(pointer, gameObject){
+  startRaiseStock(pointer, gameObject){
+    this.StockUpisHeld = true;
+    this.buttonMoveAddStock();  
+  }
+  stopRaiseStock(pointer, gameObject){
+    this.StockUpisHeld = false;
+  }
+
+  startLowerStock(pointer, gameObject){
+    this.StockUpisHeld = true;
+    this.buttonMoveMinusStock();
+  }
+  stopLowerStock(pointer, gameObject){
+    this.StockUpisHeld = false;
+  }
+
+  startLowerSavings(pointer, gameObject){
+    this.StockUpisHeld = true;
+    this.buttonMoveMinusSavingsAccount();
+  }
+  stopLowerSavings(pointer, gameObject){
+    this.StockUpisHeld = false;
+  }
+
+  startRaiseSavings(pointer, gameObject){
+    this.StockUpisHeld = true;
+    this.buttonMoveAddSavingsAccount();
+  }
+  stopRaiseSavings(pointer, gameObject){
+    this.StockUpisHeld = false;
+  }
+
+
+
+  buttonMoveAddSavingsAccount(){
     if (this.tutorialCount < 1) {
       this.tutorialCount += 1;
       this.stepTutorial(this.tutorialCount);
     }
-    this.moveFundstoSavingsAccount(10);
+    if(this.StockUpisHeld == true){
+      this.moveFundstoSavingsAccount(10);
+      this.time.addEvent({
+        delay: 50,
+        callback: ()=>{
+          this.buttonMoveAddSavingsAccount();
+        },
+        loop: false
+      });
+    }
   }
-  buttonMoveMinusSavingsAccount(pointer, gameObject){
-    this.moveFundstoSavingsAccount(-10);
+
+  buttonMoveMinusSavingsAccount(){
+    if(this.StockUpisHeld == true){
+      this.moveFundstoSavingsAccount(-10);
+      this.time.addEvent({
+        delay: 50,
+        callback: ()=>{
+          this.buttonMoveMinusSavingsAccount();
+        },
+        loop: false
+      });
+    }
   }
   moveFundstoSavingsAccount(amount){
     if (((amount <= this.Checking) && (amount>0))||(((-1)*amount <= this.fundsSavingsAccount) && (amount<0))){
@@ -137,15 +202,35 @@ export default class MainScene extends Phaser.Scene {
     }
   }
 
-  buttonMoveAddStock(pointer, gameObject){
+  buttonMoveAddStock(){
     if (this.tutorialCount < 1) {
       this.tutorialCount += 1;
       this.stepTutorial(this.tutorialCount);
     }
-    this.moveFundstoStock(10);
+    if(this.StockUpisHeld == true){
+      this.moveFundstoStock(10);
+
+      this.time.addEvent({
+      delay: 50,
+      callback: ()=>{
+        this.buttonMoveAddStock();
+      },
+      loop: false
+      });
+    }
   }
-  buttonMoveMinusStock(pointer, gameObject){
-    this.moveFundstoStock(-10);
+
+  buttonMoveMinusStock(){
+    if(this.StockUpisHeld == true){
+      this.moveFundstoStock(-10);
+      this.time.addEvent({
+        delay: 50,
+        callback: ()=>{
+          this.buttonMoveMinusStock();
+        },
+        loop: false
+      });
+    }
   }
   moveFundstoStock(amount){
     if (((amount <= this.Checking) && (amount>0))||(((-1)*amount <= this.fundsStock) && (amount<0))){
