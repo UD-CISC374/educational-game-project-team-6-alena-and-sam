@@ -17,6 +17,8 @@ export default class MainScene extends Phaser.Scene {
   private day;
   private dayButton;
   private coin;
+  tutorial: Array<Phaser.GameObjects.Text>;
+  tutorialCount = 0;
 
 
   dragon: Phaser.GameObjects.Sprite;
@@ -69,8 +71,9 @@ export default class MainScene extends Phaser.Scene {
     this.dragon = new Dragon(this, "dragon", this.scale.width/8, this.scale.height/1.3);
     this.dragon.scale = 0.5;
 
-    this.add.image(500, 300, "jesterFrog");
-    this.add.text(450, 210, "Price: $50,000");
+    this.add.image(this.scale.width/2 + this.scale.width/3 + 20, this.scale.height/2 + this.scale.height/3 - 20, "jesterFrog");
+    this.add.text(this.scale.width/2 + this.scale.width/4 + 10, this.scale.height/2 + this.scale.height/9 + 3, "Price: $50,000");
+    this.add.text(this.scale.width/2 + this.scale.width/4 + 25, this.scale.height/2 + this.scale.height/3 + 25, "JESTER FROG");
 
     this.anims.create({
       key: "coinSpin",
@@ -79,22 +82,48 @@ export default class MainScene extends Phaser.Scene {
       repeat: -1
     });
 
-    this.coin = this.add.sprite(500, 150, "coin");
+    this.coin = this.add.sprite(this.scale.width/2 + this.scale.width/5, this.scale.height/2 + this.scale.height/3, "coin");
     this.coin.play("coinSpin");
-    this.add.text(465, 150, "BUY FROG");
+    this.add.text(this.scale.width/2 + this.scale.width/5 - 40, this.scale.height/2 + this.scale.height/3, "BUY FROG");
     this.coin.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buyFrog(this, this.coin) );
+
+    this.tutorial = new Array(4);
+
+    this.add.text(this.scale.width/8, this.scale.height/2 - 10, "OBJECTIVE: Save up enough money to buy the Jester Frog.");
+    this.tutorial[0] = this.add.text(this.scale.width/8, this.scale.height/3, "Use the arrows to move money from your checking account\ninto your stock portfolio or your savings account!");
+    this.tutorial[1] = this.add.text(this.scale.width/8, this.scale.height/3, "When you're satisfied with how your money is distributed,\nclick 'next week'!");
+    this.tutorial[2] = this.add.text(this.scale.width/8, this.scale.height/3, "The stock market fluctuates,\nand so does the money in your stock portfolio!");
+    this.tutorial[3] = this.add.text(this.scale.width/8, this.scale.height/3, "When you have enough money to buy the frog, click the coin!");
+    this.tutorial[4] = this.add.text(this.scale.width/3, this.scale.height/3, "YOU BOUGHT THE FROG");
+
+
+    for (var i = 1; i < 5; i ++){
+      this.tutorial[i].visible = false;
+    }
+    
+  }
+
+  stepTutorial(count: number) {
+    console.log("tutorial step: " + count);
+    this.tutorial[count-1].visible = false;
+    this.tutorial[count].visible = true;
   }
 
   buyFrog(pointer, gameObject){
     if(this.fundsStock >= 50000){
       this.fundsStock -= 50000;
-      this.add.text(300, 20, "YOU BOUGHT THE FROG");
       this.updateAccounts();
+      this.tutorialCount += 1;
+      this.stepTutorial(this.tutorialCount);
     }
   }
 
 
   buttonMoveAddSavingsAccount(pointer, gameObject){
+    if (this.tutorialCount < 1) {
+      this.tutorialCount += 1;
+      this.stepTutorial(this.tutorialCount);
+    }
     this.moveFundstoSavingsAccount(10);
   }
   buttonMoveMinusSavingsAccount(pointer, gameObject){
@@ -109,6 +138,10 @@ export default class MainScene extends Phaser.Scene {
   }
 
   buttonMoveAddStock(pointer, gameObject){
+    if (this.tutorialCount < 1) {
+      this.tutorialCount += 1;
+      this.stepTutorial(this.tutorialCount);
+    }
     this.moveFundstoStock(10);
   }
   buttonMoveMinusStock(pointer, gameObject){
@@ -140,11 +173,15 @@ export default class MainScene extends Phaser.Scene {
     this.fundsStock = Phaser.Math.RoundTo((randNum*this.fundsStock), -2);
     this.Checking += 100;
     this.updateAccounts();
+    if (this.tutorialCount < 3) {
+      this.tutorialCount += 1;
+      this.stepTutorial(this.tutorialCount);
+    }
   }
 
 
 
   update() {
-    
+
   }
 }
