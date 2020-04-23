@@ -105,7 +105,7 @@ export default class MainScene extends Phaser.Scene {
     this.tutorial[0] = this.add.text(this.scale.width/8, this.scale.height/3, "Use the arrows to move money from your checking account\ninto your stock portfolio or your savings account!");
     this.tutorial[1] = this.add.text(this.scale.width/8, this.scale.height/3, "When you're satisfied with how your money is distributed,\nclick 'next week'!");
     this.tutorial[2] = this.add.text(this.scale.width/8, this.scale.height/3, "The stock market fluctuates,\nand so does the money in your stock portfolio!");
-    this.tutorial[3] = this.add.text(this.scale.width/8, this.scale.height/3, "When you have enough money to buy the frog, click the coin!");
+    this.tutorial[3] = this.add.text(this.scale.width/8, this.scale.height/3, "When you have enough money in checking to buy the frog, \nclick the coin!");
     this.tutorial[4] = this.add.text(this.scale.width/3, this.scale.height/3, "YOU BOUGHT THE FROG");
 
 
@@ -122,8 +122,8 @@ export default class MainScene extends Phaser.Scene {
   }
 
   buyFrog(pointer, gameObject){
-    if(this.fundsStock >= 5000){
-      this.fundsStock -= 5000;
+    if(this.Checking >= 5000){
+      this.Checking -= 5000;
       this.updateAccounts();
       this.tutorialCount += 1;
       this.stepTutorial(this.tutorialCount);
@@ -246,9 +246,9 @@ export default class MainScene extends Phaser.Scene {
 
 
   updateAccounts(){
-    this.BarChecking.text = "Checking: $"+ this.Checking;
-    this.Bar401.text = "SavingsAccount: $"+ this.fundsSavingsAccount;
-    this.BarA.text = "Stock: $" + this.fundsStock;
+    this.BarChecking.text = "Checking: $"+ Phaser.Math.RoundTo(this.Checking, -2);
+    this.Bar401.text = "SavingsAccount: $"+ Phaser.Math.RoundTo(this.fundsSavingsAccount, -2);
+    this.BarA.text = "Stock: $" + Phaser.Math.RoundTo(this.fundsStock, -2);
   }
 
   nextDay(pointer, gameobject){
