@@ -18,6 +18,7 @@ export default class MainScene extends Phaser.Scene {
   private dayButton;
   private coin;
   private StockUpisHeld: boolean;
+  private market: number;
   tutorial: Array<Phaser.GameObjects.Text>;
   tutorialCount = 0;
 
@@ -32,6 +33,7 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this.StockUpisHeld = false;
+    this.market = 1.12;
 
     this.background = this.add.image(0, 0, "cave");
     this.background.setOrigin(0, 0);
@@ -122,12 +124,13 @@ export default class MainScene extends Phaser.Scene {
   }
 
   buyFrog(pointer, gameObject){
-    if(this.Checking >= 5000){
-      this.Checking -= 5000;
-      this.updateAccounts();
-      this.tutorialCount += 1;
-      this.stepTutorial(this.tutorialCount);
-    }
+      // if(this.Checking >= 5000){
+      // this.Checking -= 5000;
+      //this.updateAccounts();
+      //this.tutorialCount += 1;
+      //this.stepTutorial(this.tutorialCount);
+      this.scene.start('store');
+    //}
   }
 
 
@@ -244,6 +247,9 @@ export default class MainScene extends Phaser.Scene {
     this.Checking += amount;
   }
 
+  updateMarket(){
+    this.market = Phaser.Math.Between(75, 150)/100;
+  }
 
   updateAccounts(){
     this.BarChecking.text = "Checking: $"+ Phaser.Math.RoundTo(this.Checking, -2);
@@ -251,11 +257,22 @@ export default class MainScene extends Phaser.Scene {
     this.BarA.text = "Stock: $" + Phaser.Math.RoundTo(this.fundsStock, -2);
   }
 
+  stockCrash(){
+    this.fundsStock = 0.1*(this.fundsStock);
+  }
+
+  randomEvent(){
+    let eventCheck = Phaser.Math.Between(1, 100);
+
+  }
+
+
+
   nextDay(pointer, gameobject){
     this.day += 1;
     this.fundsSavingsAccount = Phaser.Math.RoundTo(((1.05)*this.fundsSavingsAccount), -2);
-    let randNum = Phaser.Math.Between(75, 150)/100;
-    this.fundsStock = Phaser.Math.RoundTo((randNum*this.fundsStock), -2);
+    this.fundsStock = Phaser.Math.RoundTo((this.market*this.fundsStock), -2);
+    this.updateMarket();
     this.Checking += 100;
     this.updateAccounts();
     if (this.tutorialCount < 3) {
