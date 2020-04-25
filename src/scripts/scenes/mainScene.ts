@@ -19,6 +19,7 @@ export default class MainScene extends Phaser.Scene {
   private coin;
   private StockUpisHeld: boolean;
   private market: number;
+  private newsButton;
   tutorial: Array<Phaser.GameObjects.Text>;
   tutorialCount = 0;
 
@@ -44,6 +45,10 @@ export default class MainScene extends Phaser.Scene {
     this.dayButton.scale = 0.1;
     this.dayButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.nextDay(this, this.dayButton) );
     this.day = 0;
+
+    this.newsButton = this.add.image(350, 350, "news");
+    this.newsButton.scale = 0.2;
+    this.newsButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.goNews(this, this.newsButton) );
 
     this.fundsSavingsAccount = 0;
     this.fundsStock = 0;
@@ -133,6 +138,9 @@ export default class MainScene extends Phaser.Scene {
     //}
   }
 
+  goNews(pointer, gameObject){
+    this.scene.start('news');
+  }
 
   startRaiseStock(pointer, gameObject){
     this.StockUpisHeld = true;
