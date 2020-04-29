@@ -221,8 +221,18 @@ export default class MainScene extends Phaser.Scene {
     if (((amount <= this.Checking) && (amount>0))||(((-1)*amount <= this.fundsSavingsAccount) && (amount<0))){
       this.Checking -= amount;
       this.fundsSavingsAccount += amount;
+      this.updateAccounts();}
+    else if(amount >0){
+      this.fundsSavingsAccount += this.Checking;
+      this.Checking = 0;
       this.updateAccounts();
     }
+    else{
+      this.Checking += this.fundsSavingsAccount;
+      this.fundsSavingsAccount = 0;
+      this.updateAccounts();
+    }
+    
   }
 
   buttonMoveAddStock(){
@@ -230,7 +240,7 @@ export default class MainScene extends Phaser.Scene {
       this.tutorialCount += 1;
       this.stepTutorial(this.tutorialCount);
     }
-    if(this.StockUpisHeld == true){
+    if((this.StockUpisHeld == true)&&(this.Checking>=this.market)){
       this.stockCount += 1;
       this.Checking -= this.market;
       this.updateAccounts();
@@ -246,7 +256,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   buttonMoveMinusStock(){
-    if(this.StockUpisHeld == true){
+    if((this.StockUpisHeld == true)&&(this.stockCount>0)){
       this.stockCount -= 1;
       this.Checking += this.market;
       this.updateAccounts();
@@ -276,7 +286,12 @@ export default class MainScene extends Phaser.Scene {
     this.marketAccel = Phaser.Math.Between(-4, 5);
     this.randomEvent();
     this.marketVelocity = this.marketVelocity + this.marketAccel;
-    this.market = this.market + this.marketVelocity;
+    if(this.market + this.marketVelocity > 1){
+      this.market = this.market + this.marketVelocity;
+    }
+    else{
+      this.market = 1;
+    }
   }
 
   updateAccounts(){
