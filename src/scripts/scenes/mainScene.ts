@@ -9,6 +9,8 @@ export default class MainScene extends Phaser.Scene {
   private Bar401;
   private BarA;
   private BarChecking;
+  private marketTXT;
+  private stockCountTXT;
   private InvestArrowUp;
   private InvestArrowDown;
   private StockArrowUp;
@@ -18,10 +20,15 @@ export default class MainScene extends Phaser.Scene {
   private dayButton;
   private coin;
   private StockUpisHeld: boolean;
-  private market: number;
+  
   private newsButton;
   tutorial: Array<Phaser.GameObjects.Text>;
   tutorialCount = 0;
+
+  private stockCount;
+  private market: number;
+  private marketVelocity;
+  private marketAccel;
 
 
   dragon: Phaser.GameObjects.Sprite;
@@ -34,7 +41,9 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this.StockUpisHeld = false;
-    this.market = 1.12;
+    this.market = 25;
+    this.marketVelocity = 5;
+    this.marketAccel = -1;
 
     this.background = this.add.image(0, 0, "cave");
     this.background.setOrigin(0, 0);
@@ -53,10 +62,13 @@ export default class MainScene extends Phaser.Scene {
     this.fundsSavingsAccount = 0;
     this.fundsStock = 0;
     this.Checking = 100;
+    this.stockCount = 0;
 
     this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.fundsSavingsAccount, 16);
     this.BarA = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.fundsStock, 16);
     this.BarChecking = this.add.bitmapText(275, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
+    this.stockCountTXT = this.add.bitmapText(175, 20, "pixelFont", "Stocks Held: "+ this.stockCount, 16);
+    this.marketTXT = this.add.bitmapText(175, 30, "pixelFont", "Value per Stock: $"+ this.market, 16);
 
     this.InvestArrowUp = this.add.sprite(50, 40, "arrow");
     this.InvestArrowUp.scale = 0.05;
@@ -219,7 +231,9 @@ export default class MainScene extends Phaser.Scene {
       this.stepTutorial(this.tutorialCount);
     }
     if(this.StockUpisHeld == true){
-      this.moveFundstoStock(10);
+      this.stockCount += 1;
+      this.Checking -= this.market;
+      this.updateAccounts();
 
       this.time.addEvent({
       delay: 50,
@@ -233,7 +247,10 @@ export default class MainScene extends Phaser.Scene {
 
   buttonMoveMinusStock(){
     if(this.StockUpisHeld == true){
-      this.moveFundstoStock(-10);
+      this.stockCount -= 1;
+      this.Checking += this.market;
+      this.updateAccounts();
+
       this.time.addEvent({
         delay: 50,
         callback: ()=>{
@@ -256,21 +273,29 @@ export default class MainScene extends Phaser.Scene {
   }
 
   updateMarket(){
-    this.market = Phaser.Math.Between(75, 150)/100;
+    this.marketAccel = Phaser.Math.Between(-4, 5);
+    this.randomEvent();
+    this.marketVelocity = this.marketVelocity + this.marketAccel;
+    this.market = this.market + this.marketVelocity;
   }
 
   updateAccounts(){
     this.BarChecking.text = "Checking: $"+ Phaser.Math.RoundTo(this.Checking, -2);
     this.Bar401.text = "SavingsAccount: $"+ Phaser.Math.RoundTo(this.fundsSavingsAccount, -2);
-    this.BarA.text = "Stock: $" + Phaser.Math.RoundTo(this.fundsStock, -2);
+    this.BarA.text = "Stock: $" + Phaser.Math.RoundTo(this.stockCount*this.market, -2);
+    this.stockCountTXT.text = "Stocks Held: " + this.stockCount;
+    this.marketTXT.text = "Value per Stock: " + Phaser.Math.RoundTo(this.market, -2);
   }
 
   stockCrash(){
-    this.fundsStock = 0.1*(this.fundsStock);
+    this.market = 0.1*(this.market);
   }
 
   randomEvent(){
     let eventCheck = Phaser.Math.Between(1, 100);
+    if(eventCheck <= 1){
+      this.stockCrash();
+    }
 
   }
 
@@ -279,7 +304,7 @@ export default class MainScene extends Phaser.Scene {
   nextDay(pointer, gameobject){
     this.day += 1;
     this.fundsSavingsAccount = Phaser.Math.RoundTo(((1.05)*this.fundsSavingsAccount), -2);
-    this.fundsStock = Phaser.Math.RoundTo((this.market*this.fundsStock), -2);
+    this.fundsStock = Phaser.Math.RoundTo((this.market*this.stockCount), -2);
     this.updateMarket();
     this.Checking += 100;
     this.updateAccounts();
