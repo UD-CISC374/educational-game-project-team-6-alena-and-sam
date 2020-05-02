@@ -43,9 +43,6 @@ export default class MainScene extends Phaser.Scene {
     this.Checking = 100;
     /* checking end */
 
-    /* constructing financial accounts*/
-    this.savings = new financialAccount(this, 'savings', 2, 0, 0, 0.05, true);
-    this.stockB = new financialAccount(this, 'stockB', 175, 0, 0, 0.05, true);
 
     this.market = 1.12;
 
@@ -72,41 +69,33 @@ export default class MainScene extends Phaser.Scene {
     this.add.text(this.scale.width/2 + this.scale.width/4 + 25, this.scale.height/2 + this.scale.height/3 + 25, "JESTER FROG");
 
      /* creating financial account amount displays*/
+     /* constructing financial accounts*/
+     this.savings = new financialAccount(this, 'savings', 2, 0, 0, 0.05);
+     this.stockB = new financialAccount(this, 'stockB', 175, 0, 0, 0.05);
+
      this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
      this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
      this.BarChecking = this.add.bitmapText(275, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
 
      /*arrows start*/
-    //savings
-    this.InvestArrowUp = this.add.sprite(50, 40, "arrow");
-    this.InvestArrowUp.scale = 0.05;
-    this.InvestArrowUp.setInteractive({ useHandCursor: true })
-    .on('pointerdown', () => this.startRaiseAccount(this, this.InvestArrowUp, this.savings))
+
+    this.savings.up.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseAccount(this, this.InvestArrowUp, this.savings, 1))
     .on('pointerup', () => this.stopRaiseAccount(this, this.InvestArrowUp, this.savings));
-    this.InvestArrowUp.rotation = 1.57;
 
-    this.InvestArrowDown = this.add.sprite(50, 80, "arrow");
-    this.InvestArrowDown.scale = 0.05;
-    this.InvestArrowDown.setInteractive({ useHandCursor: true })
-    .on('pointerdown', () => this.startLowerAccount(this, this.InvestArrowDown, this.savings) )
-    .on('pointerup', () => this.stopLowerAccount(this, this.InvestArrowDown, this.savings));
-    this.InvestArrowDown.rotation = 4.71;
+    this.savings.down.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseAccount(this, this.InvestArrowDown, this.savings, -1) )
+    .on('pointerup', () => this.stopRaiseAccount(this, this.InvestArrowDown, this.savings));
+    //this.InvestArrowDown.rotation = 4.71;
 
-    //stockB
-    this.StockArrowDown = this.add.sprite(150, 80, "arrow");
-    this.StockArrowDown.scale = 0.05;
-    this.StockArrowDown.setInteractive({ useHandCursor: true })
-    .on('pointerdown', () => this.startLowerAccount(this, this.StockArrowDown, this.stockB) )
-    .on('pointerup', () => this.stopLowerAccount(this, this.StockArrowUp, this.stockB));
-    this.StockArrowDown.rotation = 4.71;
-
-    this.StockArrowUp = this.add.sprite(150, 40, "arrow");
-    this.StockArrowUp.scale = 0.05;
-    this.StockArrowUp.setInteractive({ useHandCursor: true })
-    .on('pointerdown', () => this.startRaiseAccount(this, this.StockArrowUp, this.stockB) )
+    this.stockB.down.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseAccount(this, this.StockArrowDown, this.stockB, -1) )
     .on('pointerup', () => this.stopRaiseAccount(this, this.StockArrowUp, this.stockB));
 
-    this.StockArrowUp.rotation = 1.57;
+    this.stockB.up.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseAccount(this, this.stockB.up, this.stockB, 1) )
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockB.up, this.stockB));
+
     /*arrows end*/
 
     this.anims.create({
@@ -157,38 +146,29 @@ export default class MainScene extends Phaser.Scene {
     this.scene.start('news');
   }
 
-  startRaiseAccount(pointer, gameObject, account: financialAccount){
+  startRaiseAccount(pointer, gameObject, account: financialAccount, direction: number){
     if (this.tutorialCount < 1) {
       this.tutorialCount += 1;
       this.stepTutorial(this.tutorialCount);
     }
     account.held = true;
-    this.buttonMoveAddAccount(account); 
+    this.buttonMoveAddAccount(account, direction); 
   }
   stopRaiseAccount(pointer, gameObject, account: financialAccount){
     account.held = false;
   }
 
-  startLowerAccount(pointer, gameObject, account: financialAccount){
-    account.held = true;
-    this.buttonMoveMinusAccount(account);
-  }
-
-  stopLowerAccount(pointer, gameObject, account: financialAccount){
-    account.held = false;
-  }
-
-  buttonMoveAddAccount(account: financialAccount){
+  buttonMoveAddAccount(account: financialAccount, direction: number){
     if (this.tutorialCount < 1) {
       this.tutorialCount += 1;
       this.stepTutorial(this.tutorialCount);
     }
     if(account.held == true){
-      this.moveFundstoAccount(10, account);
+      this.moveFundstoAccount(direction*10, account);
       this.time.addEvent({
       delay: 50,
       callback: ()=>{
-        this.buttonMoveAddAccount(account);
+        this.buttonMoveAddAccount(account, direction);
       },
       loop: false
       });

@@ -1,18 +1,28 @@
+import arrow from './arrow';
+
 export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     amount: number;
     interest: number;
-    hasArrows: boolean;
     held: boolean;
     name: string;
+    up: Phaser.GameObjects.Sprite;
+    down: Phaser.GameObjects.Sprite;
 
-    constructor(scene: Phaser.Scene, name: string, x: number, y: number, amount: number, interest: number, hasArrows: boolean) {
+    constructor(scene: Phaser.Scene, name: string, x: number, y: number, amount: number, interest: number) {
         super(scene, x, y, 'account');
         scene.add.existing(this);
         this.name = name;
         this.amount = amount;
         this.interest = interest;
-        this.hasArrows = hasArrows;
         this.held = false;
+
+        this.up = scene.add.sprite(x, y + 40, 'arrow');
+        this.up.scale = 0.05;
+        this.up.rotation = 1.57;
+
+        this.down = scene.add.sprite(x, y + 80, 'arrow');
+        this.down.scale = 0.05;
+        this.down.rotation = 4.71;
     }
 
     add(amount: number) {
