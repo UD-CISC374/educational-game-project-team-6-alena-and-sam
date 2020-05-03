@@ -1,5 +1,3 @@
-import arrow from './arrow';
-
 export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     amount: number;
     interest: number;
