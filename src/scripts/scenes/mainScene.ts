@@ -70,11 +70,11 @@ export default class MainScene extends Phaser.Scene {
 
      /* creating financial account amount displays*/
      /* constructing financial accounts*/
-     this.savings = new financialAccount(this, 'savings', 2, 0, 0, 0.05);
+     this.savings = new financialAccount(this, 'savings', 50, 0, 0, 0.05);
      this.stockB = new financialAccount(this, 'stockB', 175, 0, 0, 0.05);
 
-     this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
-     this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
+     //this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
+     //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
      this.BarChecking = this.add.bitmapText(275, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
 
      /*arrows start*/
@@ -207,8 +207,8 @@ export default class MainScene extends Phaser.Scene {
 
   updateAccounts(){
     this.BarChecking.text = "Checking: $"+ Phaser.Math.RoundTo(this.Checking, -2);
-    this.Bar401.text = "SavingsAccount: $"+ Phaser.Math.RoundTo(this.savings.amount, -2);
-    this.BarB.text = "Stock: $" + Phaser.Math.RoundTo(this.stockB.amount, -2);
+    this.savings.refresh();
+    this.stockB.refresh();
   }
 
   stockCrash(){

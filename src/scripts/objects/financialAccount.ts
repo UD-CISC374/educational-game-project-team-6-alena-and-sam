@@ -5,6 +5,7 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     name: string;
     up: Phaser.GameObjects.Sprite;
     down: Phaser.GameObjects.Sprite;
+    display: Phaser.GameObjects.BitmapText;
 
     constructor(scene: Phaser.Scene, name: string, x: number, y: number, amount: number, interest: number) {
         super(scene, x, y, 'account');
@@ -13,6 +14,8 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         this.amount = amount;
         this.interest = interest;
         this.held = false;
+
+        this.display = scene.add.bitmapText(x, y, "pixelFont", name + ": $"+ amount, 16);
 
         this.up = scene.add.sprite(x, y + 40, 'arrow');
         this.up.scale = 0.05;
@@ -39,5 +42,9 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
 
     toString() {
       return this.name;
+    }
+
+    refresh() {
+      this.display.text = this.name + ": $"+ this.amount;
     }
 }
