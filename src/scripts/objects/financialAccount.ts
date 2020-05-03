@@ -27,11 +27,11 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
 
         this.up = scene.add.sprite(x - 10, y + 10, 'arrow');
         this.up.scale = 0.05;
-        this.up.rotation = 1.57;
+        this.up.angle = 90;
 
         this.down = scene.add.sprite(x - 10, y + 50, 'arrow');
         this.down.scale = 0.05;
-        this.down.rotation = 4.71;
+        this.down.angle = 270;
     }
 
     add(count: number) {

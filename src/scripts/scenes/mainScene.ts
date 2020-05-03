@@ -7,30 +7,21 @@ export default class MainScene extends Phaser.Scene {
   //public fundsSavingsAccount: number;
   public Checking: number;
   public Savings: number;
-  private Bar401;
-  private BarA;
   private BarChecking;
   private BarSavings;
-  private InvestArrowUp;
-  private InvestArrowDown;
-  private StockArrowUp;
-  private StockArrowDown;
   private background;
   private day;
   private dayButton;
   private coin;
-  //private StockUpisHeld: boolean;
-  private market: number;
-  private newsButton;
+
+
   tutorial: Array<Phaser.GameObjects.Text>;
   tutorialCount = 0;
 
   //private savings: financialAccount;
   private stockA: financialAccount;
   private stockB: financialAccount;
-  //private stockC: financialAccount;
-  private BarB;
-  //private fundsStock;
+
 
   dragon: Phaser.GameObjects.Sprite;
   //checking: financialAccount;
@@ -42,6 +33,8 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    this.scene.bringToTop();
+    
     /* checking  start */
     this.Checking = 90;
     //this.registry.set("Checking", this.Checking);
@@ -62,9 +55,9 @@ export default class MainScene extends Phaser.Scene {
     this.dayButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.nextDay(this, this.dayButton) );
     this.day = 0;
 
-    this.newsButton = this.add.image(350, 350, "news");
-    this.newsButton.scale = 0.2;
-    this.newsButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.goNews(this, this.newsButton) );
+    //this.newsButton = this.add.image(350, 350, "news");
+    //this.newsButton.scale = 0.2;
+    //this.newsButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.goNews(this, this.newsButton) );
 
 
     this.dragon = new Dragon(this, "dragon", this.scale.width/8, this.scale.height/1.3);
@@ -87,21 +80,20 @@ export default class MainScene extends Phaser.Scene {
     /*arrows start*/
 
     this.stockA.up.setInteractive({ useHandCursor: true })
-    .on('pointerdown', () => this.startRaiseAccount(this, this.InvestArrowUp, this.stockA, 1))
-    .on('pointerup', () => this.stopRaiseAccount(this, this.InvestArrowUp, this.stockA));
+    .on('pointerdown', () => this.startRaiseAccount(this, this.stockA.up, this.stockA, 1))
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockA.up, this.stockA));
 
     this.stockA.down.setInteractive({ useHandCursor: true })
-    .on('pointerdown', () => this.startRaiseAccount(this, this.InvestArrowDown, this.stockA, -1) )
-    .on('pointerup', () => this.stopRaiseAccount(this, this.InvestArrowDown, this.stockA));
-    //this.InvestArrowDown.rotation = 4.71;
-
-    this.stockB.down.setInteractive({ useHandCursor: true })
-    .on('pointerdown', () => this.startRaiseAccount(this, this.StockArrowDown, this.stockB, -1) )
-    .on('pointerup', () => this.stopRaiseAccount(this, this.StockArrowUp, this.stockB));
+    .on('pointerdown', () => this.startRaiseAccount(this, this.stockA.down, this.stockA, -1) )
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockA.down, this.stockA));
 
     this.stockB.up.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseAccount(this, this.stockB.up, this.stockB, 1) )
     .on('pointerup', () => this.stopRaiseAccount(this, this.stockB.up, this.stockB));
+
+    this.stockB.down.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseAccount(this, this.stockB.down, this.stockB, -1) )
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockB.down, this.stockB));
 
     /*arrows end*/
 
@@ -154,7 +146,7 @@ export default class MainScene extends Phaser.Scene {
     this.updateAccounts();
 }
 
-  public goNews(pointer, gameObject){
+  public goNews(){
     this.scene.bringToTop('news');
   }
 
@@ -230,6 +222,7 @@ export default class MainScene extends Phaser.Scene {
       this.tutorialCount += 1;
       this.stepTutorial(this.tutorialCount);
     }
+    this.goNews();
   }
 
 
