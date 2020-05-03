@@ -44,9 +44,11 @@ export default class MainScene extends Phaser.Scene {
   create() {
     /* checking  start */
     this.Checking = 90;
+    //this.registry.set("Checking", this.Checking);
     this.Savings = 10;
     /* checking end */
 
+    this.game.events.on("buyFrog1", this.buyFrog1, this);
 
     //this.market = 1.12;
 
@@ -72,17 +74,17 @@ export default class MainScene extends Phaser.Scene {
     this.add.text(this.scale.width/2 + this.scale.width/4 + 10, this.scale.height/2 + this.scale.height/9 + 3, "Price: $5,000");
     this.add.text(this.scale.width/2 + this.scale.width/4 + 25, this.scale.height/2 + this.scale.height/3 + 25, "JESTER FROG");
 
-     /* creating financial account amount displays*/
-     /* constructing financial accounts*/
-     this.stockA = new financialAccount(this, 'stockA', 50, 0, 10, 1, -0.5);
-     this.stockB = new financialAccount(this, 'stockB', 175, 0, 25, 5, -1);
+    /* creating financial account amount displays*/
+    /* constructing financial accounts*/
+    this.stockA = new financialAccount(this, 'stockA', 50, 0, 10, 1, -0.5);
+    this.stockB = new financialAccount(this, 'stockB', 175, 0, 25, 5, -1);
 
      //this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
      //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
-     this.BarChecking = this.add.bitmapText(300, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
-     this.BarSavings = this.add.bitmapText(300, 20, "pixelFont", "Savings: $"+ this.Savings, 16);
+    this.BarChecking = this.add.bitmapText(300, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
+    this.BarSavings = this.add.bitmapText(300, 20, "pixelFont", "Savings: $"+ this.Savings, 16);
 
-     /*arrows start*/
+    /*arrows start*/
 
     this.stockA.up.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseAccount(this, this.InvestArrowUp, this.stockA, 1))
@@ -143,12 +145,17 @@ export default class MainScene extends Phaser.Scene {
       //this.updateAccounts();
       //this.tutorialCount += 1;
       //this.stepTutorial(this.tutorialCount);
-      this.scene.start('store');
+      this.scene.bringToTop('store');
     //}
   }
 
-  goNews(pointer, gameObject){
-    this.scene.start('news');
+  buyFrog1(pointer, gameObject){
+    this.Checking -= 15;
+    this.updateAccounts();
+}
+
+  public goNews(pointer, gameObject){
+    this.scene.bringToTop('news');
   }
 
   startRaiseAccount(pointer, gameObject, account: financialAccount, direction: number){
