@@ -6,9 +6,11 @@ export default class MainScene extends Phaser.Scene {
 
   //public fundsSavingsAccount: number;
   public Checking: number;
+  public Savings: number;
   private Bar401;
   private BarA;
   private BarChecking;
+  private BarSavings;
   private InvestArrowUp;
   private InvestArrowDown;
   private StockArrowUp;
@@ -23,14 +25,15 @@ export default class MainScene extends Phaser.Scene {
   tutorial: Array<Phaser.GameObjects.Text>;
   tutorialCount = 0;
 
-  private savings: financialAccount;
+  //private savings: financialAccount;
+  private stockA: financialAccount;
   private stockB: financialAccount;
   //private stockC: financialAccount;
   private BarB;
   //private fundsStock;
 
   dragon: Phaser.GameObjects.Sprite;
-  checking: financialAccount;
+  //checking: financialAccount;
 
 
 
@@ -40,11 +43,12 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     /* checking  start */
-    this.Checking = 100;
+    this.Checking = 90;
+    this.Savings = 10;
     /* checking end */
 
 
-    this.market = 1.12;
+    //this.market = 1.12;
 
     this.background = this.add.image(0, 0, "cave");
     this.background.setOrigin(0, 0);
@@ -70,22 +74,23 @@ export default class MainScene extends Phaser.Scene {
 
      /* creating financial account amount displays*/
      /* constructing financial accounts*/
-     this.savings = new financialAccount(this, 'savings', 50, 0, 0, 0.05);
-     this.stockB = new financialAccount(this, 'stockB', 175, 0, 0, 0.05);
+     this.stockA = new financialAccount(this, 'stockA', 50, 0, 10, 1, -0.5);
+     this.stockB = new financialAccount(this, 'stockB', 175, 0, 25, 5, -1);
 
      //this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
      //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
-     this.BarChecking = this.add.bitmapText(275, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
+     this.BarChecking = this.add.bitmapText(300, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
+     this.BarSavings = this.add.bitmapText(300, 20, "pixelFont", "Savings: $"+ this.Savings, 16);
 
      /*arrows start*/
 
-    this.savings.up.setInteractive({ useHandCursor: true })
-    .on('pointerdown', () => this.startRaiseAccount(this, this.InvestArrowUp, this.savings, 1))
-    .on('pointerup', () => this.stopRaiseAccount(this, this.InvestArrowUp, this.savings));
+    this.stockA.up.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseAccount(this, this.InvestArrowUp, this.stockA, 1))
+    .on('pointerup', () => this.stopRaiseAccount(this, this.InvestArrowUp, this.stockA));
 
-    this.savings.down.setInteractive({ useHandCursor: true })
-    .on('pointerdown', () => this.startRaiseAccount(this, this.InvestArrowDown, this.savings, -1) )
-    .on('pointerup', () => this.stopRaiseAccount(this, this.InvestArrowDown, this.savings));
+    this.stockA.down.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseAccount(this, this.InvestArrowDown, this.stockA, -1) )
+    .on('pointerup', () => this.stopRaiseAccount(this, this.InvestArrowDown, this.stockA));
     //this.InvestArrowDown.rotation = 4.71;
 
     this.stockB.down.setInteractive({ useHandCursor: true })
@@ -164,7 +169,7 @@ export default class MainScene extends Phaser.Scene {
       this.stepTutorial(this.tutorialCount);
     }
     if(account.held == true){
-      this.moveFundstoAccount(direction*10, account);
+      this.moveFundstoAccount(direction*1, account);
       this.time.addEvent({
       delay: 50,
       callback: ()=>{
@@ -175,57 +180,42 @@ export default class MainScene extends Phaser.Scene {
     }
   }
 
-  buttonMoveMinusAccount(account: financialAccount){
-    if(account.held == true){
-      this.moveFundstoAccount(-10, account);
-      this.time.addEvent({
-        delay: 50,
-        callback: ()=>{
-          this.buttonMoveMinusAccount(account);
-        },
-        loop: false
-      });
-    }
-  }
-
-  moveFundstoAccount(amount: number, account: financialAccount){
-    if (((amount <= this.Checking) && (amount>0))||(((-1)*amount <= account.amount) && (amount<0))){
-      this.Checking -= amount;
+  moveFundstoAccount(count: number, account: financialAccount){
+    if ((count > 0)&&(account.price * count <= this.Checking)||((count < 0)&&(count <= account.count))){
+      this.Checking -= count * account.price;
       //console.log(account);
-      account.add(amount);
+      account.add(count);
       this.updateAccounts();
     }
   }
 
-  addFunds(amount: number){
-    this.checking.add(amount);
-  }
-
   updateMarket(){
-    this.market = Phaser.Math.Between(75, 150)/100;
+    this.stockA.updatePrice();
+    this.stockB.updatePrice();
   }
 
   updateAccounts(){
     this.BarChecking.text = "Checking: $"+ Phaser.Math.RoundTo(this.Checking, -2);
-    this.savings.refresh();
+    this.BarSavings.text = "Savings: $"+ Phaser.Math.RoundTo(this.Savings, -2);
+    this.stockA.refresh();
     this.stockB.refresh();
   }
 
   stockCrash(){
-    this.stockB.amount = 0.1*(this.stockB.amount);
+    this.stockB.price = 0.1*(this.stockB.price);
   }
 
-  randomEvent(){
+  /*randomEvent(){
     let eventCheck = Phaser.Math.Between(1, 100);
 
-  }
+  }*/
 
 
 
   nextDay(pointer, gameobject){
     this.day += 1;
-    this.savings.amount = Phaser.Math.RoundTo(((1.05)*this.savings.amount), -2);
-    this.stockB.amount = Phaser.Math.RoundTo((this.market*this.stockB.amount), -2);
+    this.Savings = Phaser.Math.RoundTo(((1.05)*this.Savings), -2);
+    //this.stockB.price = Phaser.Math.RoundTo((this.market*this.stockB.price), -2);
     this.updateMarket();
     this.Checking += 100;
     this.updateAccounts();

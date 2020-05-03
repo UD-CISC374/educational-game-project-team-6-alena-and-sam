@@ -1,43 +1,66 @@
 export default class FinancialAccount extends Phaser.GameObjects.Sprite {
-    amount: number;
-    interest: number;
+    count: number;
+   
+    price: number;
+    priceVel: number;
+    priceAccel: number;
+    
     held: boolean;
     name: string;
     up: Phaser.GameObjects.Sprite;
     down: Phaser.GameObjects.Sprite;
     display: Phaser.GameObjects.BitmapText;
 
-    constructor(scene: Phaser.Scene, name: string, x: number, y: number, amount: number, interest: number) {
+    constructor(scene: Phaser.Scene, name: string, x: number, y: number, price: number, priceVel: number, priceAccel: number) {
         super(scene, x, y, 'account');
         scene.add.existing(this);
         this.name = name;
-        this.amount = amount;
-        this.interest = interest;
+
+        this.price = price;
+        this.priceVel = priceVel;
+        this.priceAccel = priceAccel;
+
         this.held = false;
+        this.count = 0;
 
-        this.display = scene.add.bitmapText(x, y, "pixelFont", name + ": $"+ amount, 16);
+        this.display = scene.add.bitmapText(x, y, "pixelFont", name + "\nStock Price: $"+ this.count*this.price + "\n Number owned: "+ this.count, 16);
 
-        this.up = scene.add.sprite(x, y + 40, 'arrow');
+        this.up = scene.add.sprite(x - 10, y + 10, 'arrow');
         this.up.scale = 0.05;
         this.up.rotation = 1.57;
 
-        this.down = scene.add.sprite(x, y + 80, 'arrow');
+        this.down = scene.add.sprite(x - 10, y + 50, 'arrow');
         this.down.scale = 0.05;
         this.down.rotation = 4.71;
     }
 
-    add(amount: number) {
-        this.amount += amount;
+    add(count: number) {
+        this.count += count;
     }  
 
-    remove(amount: number) {
-        if (amount < this.amount) {
-            this.amount -= amount;
+    remove(count: number) {
+        if (count < this.count) {
+            this.count -= count;
         }
     }
 
-    setInterest(interest: number) {
-        this.interest = interest;
+    updatePrice() {
+        this.priceAccel = Phaser.Math.Between(-4, 5);
+        this.randomEvent();
+        this.priceVel = this.priceVel + this.priceAccel;
+        if(this.price + this.priceVel > 1){
+            this.price = this.price + this.priceVel;
+        }
+        else{
+            this.price = 1;
+        }
+    }
+
+    randomEvent() {
+        let eventCheck = Phaser.Math.Between(1, 100);
+        if(eventCheck <= 1){
+            this.price = 0.1*this.price; //stock crash
+        }
     }
 
     toString() {
@@ -45,6 +68,6 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     }
 
     refresh() {
-      this.display.text = this.name + ": $"+ this.amount;
+      this.display.text = name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + this.price + "\n Number owned: "+ this.count;
     }
 }
