@@ -1,6 +1,6 @@
 export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     count: number;
-   
+    
     price: number;
     priceVel: number;
     priceAccel: number;
@@ -64,10 +64,10 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     }
 
     toString() {
-      return this.name;
+        return this.name;
     }
 
     refresh() {
-      this.display.text = name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + this.price + "\n Number owned: "+ this.count;
+        this.display.text = name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + this.price + "\n Number owned: "+ this.count;
     }
 }

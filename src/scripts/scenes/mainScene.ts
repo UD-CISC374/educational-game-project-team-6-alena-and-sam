@@ -9,26 +9,19 @@ export default class MainScene extends Phaser.Scene {
   public Savings: number;
   private BarChecking;
   private BarSavings;
-  private InvestArrowUp;
-  private InvestArrowDown;
-  private StockArrowUp;
-  private StockArrowDown;
   private background;
   private day;
   private dayButton;
   private coin;
-  //private StockUpisHeld: boolean;
-  private market: number;
-  private newsButton;
+
+
   tutorial: Array<Phaser.GameObjects.Text>;
   tutorialCount = 0;
 
   //private savings: financialAccount;
   private stockA: financialAccount;
   private stockB: financialAccount;
-  //private stockC: financialAccount;
-  private BarB;
-  //private fundsStock;
+
 
   dragon: Phaser.GameObjects.Sprite;
   //checking: financialAccount;
@@ -44,9 +37,11 @@ export default class MainScene extends Phaser.Scene {
     
     /* checking  start */
     this.Checking = 90;
+    //this.registry.set("Checking", this.Checking);
     this.Savings = 10;
     /* checking end */
 
+    this.game.events.on("buyFrog1", this.buyFrog1, this);
 
     //this.market = 1.12;
 
@@ -72,17 +67,17 @@ export default class MainScene extends Phaser.Scene {
     this.add.text(this.scale.width/2 + this.scale.width/4 + 10, this.scale.height/2 + this.scale.height/9 + 3, "Price: $5,000");
     this.add.text(this.scale.width/2 + this.scale.width/4 + 25, this.scale.height/2 + this.scale.height/3 + 25, "JESTER FROG");
 
-     /* creating financial account amount displays*/
-     /* constructing financial accounts*/
-     this.stockA = new financialAccount(this, 'stockA', 50, 0, 10, 1, -0.5);
-     this.stockB = new financialAccount(this, 'stockB', 175, 0, 25, 5, -1);
+    /* creating financial account amount displays*/
+    /* constructing financial accounts*/
+    this.stockA = new financialAccount(this, 'stockA', 50, 0, 10, 1, -0.5);
+    this.stockB = new financialAccount(this, 'stockB', 175, 0, 25, 5, -1);
 
      //this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
      //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
-     this.BarChecking = this.add.bitmapText(300, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
-     this.BarSavings = this.add.bitmapText(300, 20, "pixelFont", "Savings: $"+ this.Savings, 16);
+    this.BarChecking = this.add.bitmapText(300, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
+    this.BarSavings = this.add.bitmapText(300, 20, "pixelFont", "Savings: $"+ this.Savings, 16);
 
-     /*arrows start*/
+    /*arrows start*/
 
     this.stockA.up.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseAccount(this, this.stockA.up, this.stockA, 1))
@@ -142,14 +137,17 @@ export default class MainScene extends Phaser.Scene {
       //this.updateAccounts();
       //this.tutorialCount += 1;
       //this.stepTutorial(this.tutorialCount);
-      this.scene.start('store');
+      this.scene.bringToTop('store');
     //}
   }
 
-  goNews(){
-    this.scene.sendToBack();
-    //this.scene.launch('news');
-    //this.scene.moveDown;
+  buyFrog1(pointer, gameObject){
+    this.Checking -= 15;
+    this.updateAccounts();
+}
+
+  public goNews(){
+    this.scene.bringToTop('news');
   }
 
   startRaiseAccount(pointer, gameObject, account: financialAccount, direction: number){

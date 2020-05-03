@@ -14,12 +14,16 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("frogStore", "assets/FrogStore.png");
     this.load.image("news", "assets/NewsIcon.jpg");
     this.load.image("stockCrashNews", "assets/StockCrash.jpg");
+    this.load.image("buyButton", "assets/BuyButton.png");
   }
 
   create() {
     this.add.text(20, 20, "Loading game...");
-    this.scene.start('news');
-    this.scene.start('MainScene');
+    this.scene.launch('store');
+    this.scene.launch('news');
+    this.scene.launch('MainScene');
+    this.scene.bringToTop('MainScene');
+
     
   }
 }
