@@ -48,7 +48,7 @@ export default class MainScene extends Phaser.Scene {
     this.Savings = 10;
     /* checking end */
 
-    this.game.events.on("buyFrog1", this.buyFrog1, this);
+    this.scene.get("store").events.on("buyFrog1", this.buyFrog1, this);
 
     //this.market = 1.12;
 

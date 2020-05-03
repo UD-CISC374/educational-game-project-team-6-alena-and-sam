@@ -8,6 +8,7 @@ export default class store extends Phaser.Scene {
     private buyButton3;
     private buyButton4;
     private buyButton5;
+    private exitSign;
 
 
     constructor() {
@@ -38,14 +39,22 @@ export default class store extends Phaser.Scene {
         this.buyButton5 = this.add.image(600, 80, "buyButton");
         this.buyButton5.scale = 0.2;
 
+        this.exitSign = this.add.image(30, 30, "exitSign");
+        this.exitSign.scale = 0.15;
+
         this.buyButton1.setInteractive({ useHandCursor: true })
         .on('pointerdown', () => this.buyFrog(10, this, this.buyButton1) );
+
+        this.exitSign.setInteractive({ useHandCursor: true })
+        .on('pointerdown', () => this.exit(this, this.exitSign) );
     }
 
     buyFrog(price, pointer, gameObject){
-        this.events.emit("buyFrog1");
+        this.events.emit("buyFrog1", price);  
+    }
+
+    exit(pointer, gameObject){
         this.scene.bringToTop('MainScene');    
-        
     }
 
 
