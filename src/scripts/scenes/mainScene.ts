@@ -216,6 +216,7 @@ export default class MainScene extends Phaser.Scene {
     this.updateMarket();
     this.Checking += 100;
     this.updateAccounts();
+    this.events.emit("updateChecking", this.Checking); 
     if (this.tutorialCount < 3) {
       this.tutorialCount += 1;
       this.stepTutorial(this.tutorialCount);

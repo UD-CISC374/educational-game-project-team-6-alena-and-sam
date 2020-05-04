@@ -47,12 +47,16 @@ export default class store extends Phaser.Scene {
 
         this.buyButton1.setInteractive({ useHandCursor: true })
         .on('pointerdown', () => this.buyFrog(25000, this, this.buyButton1) );
+
         this.buyButton2.setInteractive({ useHandCursor: true })
         .on('pointerdown', () => this.buyFrog(50000, this, this.buyButton2) );
+
         this.buyButton3.setInteractive({ useHandCursor: true })
         .on('pointerdown', () => this.buyFrog(50, this, this.buyButton3) );
+
         this.buyButton4.setInteractive({ useHandCursor: true })
         .on('pointerdown', () => this.buyFrog(500, this, this.buyButton4) );
+
         this.buyButton5.setInteractive({ useHandCursor: true })
         .on('pointerdown', () => this.buyFrog(5000, this, this.buyButton5) );
 
@@ -68,6 +72,8 @@ export default class store extends Phaser.Scene {
             this.events.emit("buyFrog1", price);  
             this.Checking -= price;
             this.checkingText.text = "Checking: $" + this.Checking;
+
+            gameObject.destroy();
         }
     }
 
