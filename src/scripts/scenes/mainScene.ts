@@ -67,19 +67,19 @@ export default class MainScene extends Phaser.Scene {
 
 
     this.dragon = new Dragon(this, "dragon", this.scale.width/8, this.scale.height/1.3);
-    this.dragon.scale = 0.5;
+    this.dragon.scale = 0.43;
 
     /* creating financial account amount displays*/
     /* constructing financial accounts*/
-    this.stockA = new financialAccount(this, 'stockA', 'rockA', 240, 50, 10, 1, -0.5, 11).setScale(0.28);
-    this.stockB = new financialAccount(this, 'stockB', 'rockB', 410, 50, 25, 5, -1, 3).setScale(0.28);
-    this.stockC = new financialAccount(this, 'stockC', 'rockC', 580, 50, 13, 2, 2, 6).setScale(0.28);
-    this.savings = new savingsAccount(this, 60, 60, 0, 0.05);
+    this.stockA = new financialAccount(this, 'stockA', 'rockA', 240, this.scale.height/3 + 40, 10, 1, -0.5, 11).setScale(0.28, 0.23);
+    this.stockB = new financialAccount(this, 'stockB', 'rockB', 410, this.scale.height/3 + 40, 25, 5, -1, 3).setScale(0.28, 0.23);
+    this.stockC = new financialAccount(this, 'stockC', 'rockC', 580, this.scale.height/3 + 40, 13, 2, 2, 6).setScale(0.28, 0.23);
+    this.savings = new savingsAccount(this, 'bank', 80, this.scale.height/3 + 40, 0, 0.05).setScale(1.45, 1);
 
      //this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
      //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
-    this.BarChecking = this.add.bitmapText(300, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
-    this.countDown = this.add.bitmapText(500, 20, "pixelFont", "Weeks Left: "+ this.day, 16);
+    this.BarChecking = this.add.bitmapText(30, this.scale.height/4 + 34, "pixelFont", "Checking: $"+ this.Checking, 16);
+    this.countDown = this.add.bitmapText(300, this.scale.height/4, "pixelFont", "Weeks Left: "+ this.day, 16);
 
     /*arrows start*/
 
@@ -131,12 +131,12 @@ export default class MainScene extends Phaser.Scene {
 
     this.tutorial = new Array(4);
 
-    this.add.text(this.scale.width/8, this.scale.height/2 - 10, "OBJECTIVE: Save up enough money to buy all 5 frogs!");
-    this.tutorial[0] = this.add.text(this.scale.width/8, this.scale.height/3, "Use the arrows next to the accounts to move money \nfrom your checking account into your stock portfolio!");
-    this.tutorial[1] = this.add.text(this.scale.width/8, this.scale.height/3, "When you're satisfied with how your money is distributed,\nclick 'next week'!");
-    this.tutorial[2] = this.add.text(this.scale.width/8, this.scale.height/3, "The stock market fluctuates,\nand so does the money in your stock portfolio!");
-    this.tutorial[3] = this.add.text(this.scale.width/8, this.scale.height/3, "Check out the frog store! Your goal is to \nbuy all 5 frogs in the next 6 months. \nTo go to the store, click the coin!");
-    this.tutorial[4] = this.add.text(this.scale.width/3, this.scale.height/3, "YOU BOUGHT THE FROG");
+    this.add.text(this.scale.width/8, 20, "OBJECTIVE: Save up enough money to buy all 5 frogs!");
+    this.tutorial[0] = this.add.text(this.scale.width/8, 47, "Use the arrows next to the accounts to move money \nfrom your checking account into your stock portfolio!");
+    this.tutorial[1] = this.add.text(this.scale.width/8, 47, "When you're satisfied with how your money is distributed,\nclick 'next week'!");
+    this.tutorial[2] = this.add.text(this.scale.width/8, 47, "The stock market fluctuates,\nand so does the money in your stock portfolio!");
+    this.tutorial[3] = this.add.text(this.scale.width/8, 47, "Check out the frog store! Your goal is to \nbuy all 5 frogs in the next 6 months. \nTo go to the store, click the coin!");
+    this.tutorial[4] = this.add.text(this.scale.width/3, 47, "YOU BOUGHT THE FROG");
 
 
     for (var i = 1; i < 5; i ++){

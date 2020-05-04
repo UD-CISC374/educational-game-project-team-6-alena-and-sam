@@ -23,6 +23,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("rockB", "assets/b.png");
     this.load.image("rockC", "assets/c.png");
     this.load.image("X", "assets/critical-32.png");
+    this.load.image("bank", "assets/Green@2x.png");
   }
 
   create() {
