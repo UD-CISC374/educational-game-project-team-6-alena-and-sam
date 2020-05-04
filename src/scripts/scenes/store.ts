@@ -85,6 +85,8 @@ export default class store extends Phaser.Scene {
 
     exit(pointer, gameObject){
         this.scene.bringToTop('MainScene');    
+        this.scene.sleep("store");
+        this.scene.wake("MainScene");
     }
 
     updateChecking(data){

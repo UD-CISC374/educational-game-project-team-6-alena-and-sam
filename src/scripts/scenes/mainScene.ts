@@ -137,6 +137,8 @@ export default class MainScene extends Phaser.Scene {
       //this.tutorialCount += 1;
       //this.stepTutorial(this.tutorialCount);
       this.scene.bringToTop('store');
+      this.scene.wake("store");
+      this.scene.sleep("MainScene");
     //}
   }
 
@@ -146,7 +148,9 @@ export default class MainScene extends Phaser.Scene {
 }
 
   public goNews(){
+    this.scene.wake("news");
     this.scene.bringToTop('news');
+    
   }
 
   startRaiseAccount(pointer, gameObject, account: financialAccount, direction: number){
