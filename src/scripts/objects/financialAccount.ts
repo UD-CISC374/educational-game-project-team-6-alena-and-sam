@@ -15,8 +15,8 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     down: Phaser.GameObjects.Sprite;
     display: Phaser.GameObjects.BitmapText;
 
-    constructor(scene: Phaser.Scene, name: string, x: number, y: number, price: number, priceVel: number, priceAccel: number, volatility: number) {
-        super(scene, x, y, 'account');
+    constructor(scene: Phaser.Scene, name: string, image: string, x: number, y: number, price: number, priceVel: number, priceAccel: number, volatility: number) {
+        super(scene, x, y, image);
         scene.add.existing(this);
         this.name = name;
 
@@ -29,13 +29,13 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         this.held = false;
         this.count = 0;
 
-        this.display = scene.add.bitmapText(x, y, "pixelFont", this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + this.price + "\n Number owned: "+ this.count, 16);
+        this.display = scene.add.bitmapText(x - 30, y - 25, "pixelFont", this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + this.price + "\n Number owned: "+ this.count, 16);
 
-        this.up = scene.add.sprite(x - 10, y + 10, 'arrow');
+        this.up = scene.add.sprite(x - 42, y - 15, 'arrow');
         this.up.scale = 0.05;
         this.up.angle = 90;
 
-        this.down = scene.add.sprite(x - 10, y + 50, 'arrow');
+        this.down = scene.add.sprite(x - 40, y + 20, 'arrow');
         this.down.scale = 0.05;
         this.down.angle = 270;
     }

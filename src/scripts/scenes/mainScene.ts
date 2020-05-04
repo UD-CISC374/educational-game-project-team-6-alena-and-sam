@@ -2,6 +2,7 @@ import ExampleObject from '../objects/exampleObject';
 import Dragon from '../objects/dragon';
 import financialAccount from '../objects/financialAccount';
 import store from "./store";
+import savingsAccount from '../objects/savingsAccount';
 
 export default class MainScene extends Phaser.Scene {
 
@@ -9,7 +10,7 @@ export default class MainScene extends Phaser.Scene {
   public Checking: number;
   public Savings: number;
   private BarChecking;
-  private BarSavings;
+  //private BarSavings;
   private background;
   private day;
   private dayButton;
@@ -22,6 +23,9 @@ export default class MainScene extends Phaser.Scene {
   //private savings: financialAccount;
   private stockA: financialAccount;
   private stockB: financialAccount;
+  private stockC: financialAccount;
+
+  private savings: savingsAccount;
 
 
   dragon: Phaser.GameObjects.Sprite;
@@ -37,9 +41,9 @@ export default class MainScene extends Phaser.Scene {
     this.scene.bringToTop();
     
     /* checking  start */
-    this.Checking = 90;
+    this.Checking = 100;
     this.registry.set("Checking", this.Checking);
-    this.Savings = 10;
+    //this.Savings = 0;
     /* checking end */
 
     this.scene.get("store").events.on("buyFrog1", this.buyFrog1, this);
@@ -66,13 +70,15 @@ export default class MainScene extends Phaser.Scene {
 
     /* creating financial account amount displays*/
     /* constructing financial accounts*/
-    this.stockA = new financialAccount(this, 'stockA', 50, 0, 10, 1, -0.5, 20);
-    this.stockB = new financialAccount(this, 'stockB', 175, 0, 25, 5, -1, 5);
+    this.stockA = new financialAccount(this, 'stockA', 'rockA', 240, 50, 10, 1, -0.5, 11).setScale(0.28);
+    this.stockB = new financialAccount(this, 'stockB', 'rockB', 410, 50, 25, 5, -1, 3).setScale(0.28);
+    this.stockC = new financialAccount(this, 'stockC', 'rockC', 580, 50, 13, 2, 2, 6).setScale(0.28);
+    this.savings = new savingsAccount(this, 60, 60, 0, 0.05);
 
      //this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
      //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
-    this.BarChecking = this.add.bitmapText(300, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
-    this.BarSavings = this.add.bitmapText(300, 20, "pixelFont", "Savings: $"+ this.Savings, 16);
+    this.BarChecking = this.add.bitmapText(40, 15, "pixelFont", "Checking: $"+ this.Checking, 16);
+    //this.BarSavings = this.add.bitmapText(40, 50, "pixelFont", "Savings: $"+ this.Savings + "\nInterest rate: " + 0.05, 16);
 
     /*arrows start*/
 
@@ -91,6 +97,22 @@ export default class MainScene extends Phaser.Scene {
     this.stockB.down.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseAccount(this, this.stockB.down, this.stockB, -1) )
     .on('pointerup', () => this.stopRaiseAccount(this, this.stockB.down, this.stockB));
+
+    this.stockC.up.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseAccount(this, this.stockC.up, this.stockC, 1) )
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockC.up, this.stockC));
+
+    this.stockC.down.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseAccount(this, this.stockC.down, this.stockC, -1) )
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockC.down, this.stockC));
+
+    this.savings.up.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseSavings(this, this.savings.up, this.savings, 1) )
+    .on('pointerup', () => this.stopRaiseSavings(this, this.savings.up, this.savings));
+
+    this.savings.down.setInteractive({ useHandCursor: true })
+    .on('pointerdown', () => this.startRaiseSavings(this, this.savings.down, this.savings, -1) )
+    .on('pointerup', () => this.stopRaiseSavings(this, this.savings.down, this.savings));
 
     /*arrows end*/
 
@@ -159,6 +181,38 @@ export default class MainScene extends Phaser.Scene {
     account.held = false;
   }
 
+  startRaiseSavings(pointer, gameObject, account: savingsAccount, direction: number){
+    account.held = true;
+    this.buttonSavings(account, direction); 
+  }
+
+  stopRaiseSavings(pointer, gameObject, account: savingsAccount){
+    account.held = false;
+  }
+
+  buttonSavings(account: savingsAccount, direction: number) {
+    if(account.held == true){
+      this.moveFundsSavings(direction, account);
+      this.time.addEvent({
+      delay: 40,
+      callback: ()=>{
+        this.buttonSavings(account, direction);
+      },
+      loop: false
+      });
+    }
+  }
+
+  moveFundsSavings(count: number, account: savingsAccount){
+    if ((count > 0)&&(count <= this.Checking)||((count < 0)&&((-1)*count <= account.amount))){
+      this.Checking -= count;
+      //console.log(account);
+      account.add(count);
+      this.updateAccounts();
+      this.events.emit("updateChecking", this.Checking); 
+    }
+  }
+
   buttonMoveAddAccount(account: financialAccount, direction: number){
     if (this.tutorialCount < 1) {
       this.tutorialCount += 1;
@@ -167,7 +221,7 @@ export default class MainScene extends Phaser.Scene {
     if(account.held == true){
       this.moveFundstoAccount(direction*1, account);
       this.time.addEvent({
-      delay: 50,
+      delay: 80,
       callback: ()=>{
         this.buttonMoveAddAccount(account, direction);
       },
@@ -193,6 +247,9 @@ export default class MainScene extends Phaser.Scene {
     if (this.stockB.updatePrice()) {
       this.events.emit("stockCrash", this.stockB.name);  
     }
+    if (this.stockC.updatePrice()) {
+      this.events.emit("stockCrash", this.stockC.name);  
+    }
     let eventCheck = Phaser.Math.Between(1, 100);
         if(eventCheck <= 1){
             this.marketCrash();
@@ -201,14 +258,16 @@ export default class MainScene extends Phaser.Scene {
 
   updateAccounts(){
     this.BarChecking.text = "Checking: $"+ Phaser.Math.RoundTo(this.Checking, -2);
-    this.BarSavings.text = "Savings: $"+ Phaser.Math.RoundTo(this.Savings, -2);
+    this.savings.refresh();
     this.stockA.refresh();
     this.stockB.refresh();
+    this.stockC.refresh();
   }
 
   marketCrash(){
     this.stockA.price = 0.1*(this.stockA.price);
     this.stockB.price = 0.1*(this.stockB.price);
+    this.stockC.price = 0.1*(this.stockC.price);
     console.log("market crashed");
     this.goNews();
   }
