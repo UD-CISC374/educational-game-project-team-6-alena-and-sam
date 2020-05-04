@@ -16,10 +16,10 @@ export default class SavingsAccount extends Phaser.GameObjects.Sprite {
 
         this.interest = interest;
         this.amount = amount;
-       
+        
         this.held = false;
 
-        this.display = scene.add.bitmapText(x - 50, y - 15, "pixelFont", "Savings: $"+ Phaser.Math.RoundTo(this.amount, -2) + "\n Interest Rate: $" + this.interest, 16);
+        this.display = scene.add.bitmapText(x - 50, y - 15, "pixelFont", "Savings: $"+ Phaser.Math.RoundTo(this.amount, -2) + "\n Interest Rate: " + this.interest*100 + "%", 16);
 
         this.up = scene.add.sprite(x - 56, y - 15, 'arrow');
         this.up.scale = 0.05;
@@ -41,6 +41,6 @@ export default class SavingsAccount extends Phaser.GameObjects.Sprite {
     }
 
     refresh() {
-        this.display.text =  "Savings: $"+ Phaser.Math.RoundTo(this.amount, -2) + "\n Interest Rate: $" + this.interest;
+        this.display.text =  "Savings: $"+ Phaser.Math.RoundTo(this.amount, -2) + "\n Interest Rate: " + this.interest*100 + "%";
     }
 }
