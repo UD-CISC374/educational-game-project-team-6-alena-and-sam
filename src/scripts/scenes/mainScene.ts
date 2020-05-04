@@ -1,6 +1,7 @@
 import ExampleObject from '../objects/exampleObject';
 import Dragon from '../objects/dragon';
 import financialAccount from '../objects/financialAccount';
+import store from "./store";
 
 export default class MainScene extends Phaser.Scene {
 
@@ -37,7 +38,7 @@ export default class MainScene extends Phaser.Scene {
     
     /* checking  start */
     this.Checking = 90;
-    //this.registry.set("Checking", this.Checking);
+    this.registry.set("Checking", this.Checking);
     this.Savings = 10;
     /* checking end */
 
@@ -62,10 +63,6 @@ export default class MainScene extends Phaser.Scene {
 
     this.dragon = new Dragon(this, "dragon", this.scale.width/8, this.scale.height/1.3);
     this.dragon.scale = 0.5;
-
-    this.add.image(this.scale.width/2 + this.scale.width/3 + 20, this.scale.height/2 + this.scale.height/3 - 20, "jesterFrog");
-    this.add.text(this.scale.width/2 + this.scale.width/4 + 10, this.scale.height/2 + this.scale.height/9 + 3, "Price: $5,000");
-    this.add.text(this.scale.width/2 + this.scale.width/4 + 25, this.scale.height/2 + this.scale.height/3 + 25, "JESTER FROG");
 
     /* creating financial account amount displays*/
     /* constructing financial accounts*/
@@ -106,7 +103,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.coin = this.add.sprite(this.scale.width/2 + this.scale.width/5, this.scale.height/2 + this.scale.height/3, "coin");
     this.coin.play("coinSpin");
-    this.add.text(this.scale.width/2 + this.scale.width/5 - 40, this.scale.height/2 + this.scale.height/3, "BUY FROG");
+    this.add.text(this.scale.width/2 + this.scale.width/5 - 40, this.scale.height/2 + this.scale.height/3, "FROG STORE");
     this.coin.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buyFrog(this, this.coin) );
 
     this.tutorial = new Array(4);
@@ -141,8 +138,8 @@ export default class MainScene extends Phaser.Scene {
     //}
   }
 
-  buyFrog1(pointer, gameObject){
-    this.Checking -= 15;
+  buyFrog1(data){
+    this.Checking -= data;
     this.updateAccounts();
 }
 
@@ -185,6 +182,7 @@ export default class MainScene extends Phaser.Scene {
       //console.log(account);
       account.add(count);
       this.updateAccounts();
+      this.events.emit("updateChecking", this.Checking); 
     }
   }
 
