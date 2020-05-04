@@ -16,7 +16,7 @@ export default class news extends Phaser.Scene {
         this.scene.bringToTop();
 
         this.background = this.add.image(this.scale.width/6, 0, "stockCrashNews");
-        this.add.text(20, 20, "News Placeholder - This Information Is Inaccurate");
+        //this.add.text(20, 20, "News Placeholder - This Information Is Inaccurate");
         this.background.setOrigin(0, 0);
         this.background.scale = 1.3;
         

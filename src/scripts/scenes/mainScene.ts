@@ -213,10 +213,14 @@ export default class MainScene extends Phaser.Scene {
     this.goNews();
   }
 
-  /*randomEvent(){
+  randomEvent(){
     let eventCheck = Phaser.Math.Between(1, 100);
 
-  }*/
+    if(eventCheck <=5){
+      
+    }
+
+  }
 
 
 

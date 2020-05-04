@@ -12,6 +12,7 @@ export default class store extends Phaser.Scene {
     private exitSign;
     private checkingText;
     private Checking;
+    private frogCount;
 
 
     constructor() {
@@ -22,6 +23,7 @@ export default class store extends Phaser.Scene {
 
     create() {
         this.Checking = 90;
+        this.frogCount = 0;
 
         this.background = this.add.image(0, 0, "frogStore");
         this.background.setOrigin(0, 0);
@@ -72,6 +74,10 @@ export default class store extends Phaser.Scene {
             this.events.emit("buyFrog1", price);  
             this.Checking -= price;
             this.checkingText.text = "Checking: $" + this.Checking;
+            this.frogCount+=1;
+            if(this.frogCount == 5){
+                this.win();
+            }
 
             gameObject.destroy();
         }
@@ -87,7 +93,11 @@ export default class store extends Phaser.Scene {
     }
 
 
-    update() {
+    win(){
+        this.scene.bringToTop("winScene");
+    }
 
+    update() {
+        
     }
 }

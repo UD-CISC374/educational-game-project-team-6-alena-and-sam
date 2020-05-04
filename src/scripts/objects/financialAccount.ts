@@ -1,3 +1,5 @@
+import news from "../scenes/news";
+
 export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     count: number;
     
