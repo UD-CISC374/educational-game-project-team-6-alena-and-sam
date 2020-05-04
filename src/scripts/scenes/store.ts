@@ -1,5 +1,6 @@
 import MainScene from "./mainScene";
 
+
 export default class store extends Phaser.Scene {
 
     private background;
@@ -9,6 +10,8 @@ export default class store extends Phaser.Scene {
     private buyButton4;
     private buyButton5;
     private exitSign;
+    private checkingText;
+    private Checking;
 
 
     constructor() {
@@ -18,8 +21,9 @@ export default class store extends Phaser.Scene {
 
 
     create() {
+        this.registry.events.on('changedata', this.updateChecking, this);
+        this.Checking = this.registry.get("Checking");
 
-        this.add.text(20, 20, "Welcome to STORE");
         this.background = this.add.image(0, 0, "frogStore");
         this.background.setOrigin(0, 0);
         this.background.scale = 0.65;
@@ -43,18 +47,36 @@ export default class store extends Phaser.Scene {
         this.exitSign.scale = 0.15;
 
         this.buyButton1.setInteractive({ useHandCursor: true })
-        .on('pointerdown', () => this.buyFrog(10, this, this.buyButton1) );
+        .on('pointerdown', () => this.buyFrog(25000, this, this.buyButton1) );
+        this.buyButton2.setInteractive({ useHandCursor: true })
+        .on('pointerdown', () => this.buyFrog(50000, this, this.buyButton2) );
+        this.buyButton3.setInteractive({ useHandCursor: true })
+        .on('pointerdown', () => this.buyFrog(50, this, this.buyButton3) );
+        this.buyButton4.setInteractive({ useHandCursor: true })
+        .on('pointerdown', () => this.buyFrog(500, this, this.buyButton4) );
+        this.buyButton5.setInteractive({ useHandCursor: true })
+        .on('pointerdown', () => this.buyFrog(5000, this, this.buyButton5) );
 
         this.exitSign.setInteractive({ useHandCursor: true })
-        .on('pointerdown', () => this.exit(this, this.exitSign) );
+        .on('pointerdown', () => this.exit(this, this.exit) );
+
+        this.checkingText = this.add.text(550, 20, "Checking: $" + 100);
+        this.scene.get("MainScene").events.on("updateChecking", this.updateChecking, this);
     }
 
     buyFrog(price, pointer, gameObject){
         this.events.emit("buyFrog1", price);  
+        this.Checking -= price;
+        this.checkingText.text = "Checking: $" + this.Checking;
     }
 
     exit(pointer, gameObject){
         this.scene.bringToTop('MainScene');    
+    }
+
+    updateChecking(data){
+        this.Checking = data;
+        this.checkingText.text = "Checking: $" + data;
     }
 
 

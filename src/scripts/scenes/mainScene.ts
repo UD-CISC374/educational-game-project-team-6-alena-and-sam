@@ -1,6 +1,7 @@
 import ExampleObject from '../objects/exampleObject';
 import Dragon from '../objects/dragon';
 import financialAccount from '../objects/financialAccount';
+import store from "./store";
 
 export default class MainScene extends Phaser.Scene {
 
@@ -37,7 +38,7 @@ export default class MainScene extends Phaser.Scene {
     
     /* checking  start */
     this.Checking = 90;
-    //this.registry.set("Checking", this.Checking);
+    this.registry.set("Checking", this.Checking);
     this.Savings = 10;
     /* checking end */
 
@@ -141,8 +142,8 @@ export default class MainScene extends Phaser.Scene {
     //}
   }
 
-  buyFrog1(pointer, gameObject){
-    this.Checking -= 15;
+  buyFrog1(data){
+    this.Checking -= data;
     this.updateAccounts();
 }
 
@@ -185,6 +186,7 @@ export default class MainScene extends Phaser.Scene {
       //console.log(account);
       account.add(count);
       this.updateAccounts();
+      this.events.emit("updateChecking", this.Checking); 
     }
   }
 
