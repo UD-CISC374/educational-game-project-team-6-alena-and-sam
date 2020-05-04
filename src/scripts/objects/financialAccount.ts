@@ -23,7 +23,7 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         this.held = false;
         this.count = 0;
 
-        this.display = scene.add.bitmapText(x, y, "pixelFont", name + "\nStock Price: $"+ this.count*this.price + "\n Number owned: "+ this.count, 16);
+        this.display = scene.add.bitmapText(x, y, "pixelFont", this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + this.price + "\n Number owned: "+ this.count, 16);
 
         this.up = scene.add.sprite(x - 10, y + 10, 'arrow');
         this.up.scale = 0.05;
@@ -68,6 +68,6 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     }
 
     refresh() {
-        this.display.text = name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + this.price + "\n Number owned: "+ this.count;
+        this.display.text = this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + this.price + "\n Number owned: "+ this.count;
     }
 }

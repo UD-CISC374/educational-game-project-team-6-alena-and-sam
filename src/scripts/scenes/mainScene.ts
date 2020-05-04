@@ -177,7 +177,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   moveFundstoAccount(count: number, account: financialAccount){
-    if ((count > 0)&&(account.price * count <= this.Checking)||((count < 0)&&(count <= account.count))){
+    if ((count > 0)&&(account.price * count <= this.Checking)||((count < 0)&&((-1)*count <= account.count))){
       this.Checking -= count * account.price;
       //console.log(account);
       account.add(count);
