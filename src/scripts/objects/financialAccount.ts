@@ -1,3 +1,5 @@
+import news from "../scenes/news";
+
 export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     count: number;
     
@@ -60,6 +62,7 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         let eventCheck = Phaser.Math.Between(1, 100);
         if(eventCheck <= 1){
             this.price = 0.1*this.price; //stock crash
+            
         }
     }
 

@@ -202,10 +202,14 @@ export default class MainScene extends Phaser.Scene {
     this.stockB.price = 0.1*(this.stockB.price);
   }
 
-  /*randomEvent(){
+  randomEvent(){
     let eventCheck = Phaser.Math.Between(1, 100);
 
-  }*/
+    if(eventCheck <=5){
+      
+    }
+
+  }
 
 
 
