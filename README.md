@@ -12,6 +12,7 @@ Template for designing educational Phaser Games
 //X by unirail on opengameart.org
 //dragon by Alena
 //frog store by Sam using Microsoft Paint
+//material colored icons by Babajan on opengameart.org
 
 # Important Files
 
