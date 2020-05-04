@@ -15,6 +15,7 @@ export default class MainScene extends Phaser.Scene {
   private day;
   private dayButton;
   private coin;
+  private countDown;
 
 
   tutorial: Array<Phaser.GameObjects.Text>;
@@ -58,7 +59,7 @@ export default class MainScene extends Phaser.Scene {
     this.add.text(300, 300, "next week");
     this.dayButton.scale = 0.1;
     this.dayButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.nextDay(this, this.dayButton) );
-    this.day = 0;
+    this.day = 26;
 
     //this.newsButton = this.add.image(350, 350, "news");
     //this.newsButton.scale = 0.2;
@@ -77,8 +78,8 @@ export default class MainScene extends Phaser.Scene {
 
      //this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
      //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
-    this.BarChecking = this.add.bitmapText(40, 15, "pixelFont", "Checking: $"+ this.Checking, 16);
-    //this.BarSavings = this.add.bitmapText(40, 50, "pixelFont", "Savings: $"+ this.Savings + "\nInterest rate: " + 0.05, 16);
+    this.BarChecking = this.add.bitmapText(300, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
+    this.countDown = this.add.bitmapText(500, 20, "pixelFont", "Weeks Left: "+ this.day, 16);
 
     /*arrows start*/
 
@@ -130,11 +131,11 @@ export default class MainScene extends Phaser.Scene {
 
     this.tutorial = new Array(4);
 
-    this.add.text(this.scale.width/8, this.scale.height/2 - 10, "OBJECTIVE: Save up enough money to buy the Jester Frog.");
-    this.tutorial[0] = this.add.text(this.scale.width/8, this.scale.height/3, "Use the arrows to move money from your checking account\ninto your stock portfolio or your savings account!");
+    this.add.text(this.scale.width/8, this.scale.height/2 - 10, "OBJECTIVE: Save up enough money to buy all 5 frogs!");
+    this.tutorial[0] = this.add.text(this.scale.width/8, this.scale.height/3, "Use the arrows next to the accounts to move money \nfrom your checking account into your stock portfolio!");
     this.tutorial[1] = this.add.text(this.scale.width/8, this.scale.height/3, "When you're satisfied with how your money is distributed,\nclick 'next week'!");
     this.tutorial[2] = this.add.text(this.scale.width/8, this.scale.height/3, "The stock market fluctuates,\nand so does the money in your stock portfolio!");
-    this.tutorial[3] = this.add.text(this.scale.width/8, this.scale.height/3, "When you have enough money in checking to buy the frog, \nclick the coin!");
+    this.tutorial[3] = this.add.text(this.scale.width/8, this.scale.height/3, "Check out the frog store! Your goal is to \nbuy all 5 frogs in the next 6 months. \nTo go to the store, click the coin!");
     this.tutorial[4] = this.add.text(this.scale.width/3, this.scale.height/3, "YOU BOUGHT THE FROG");
 
 
@@ -157,6 +158,8 @@ export default class MainScene extends Phaser.Scene {
       //this.tutorialCount += 1;
       //this.stepTutorial(this.tutorialCount);
       this.scene.bringToTop('store');
+      this.scene.wake("store");
+      this.scene.sleep("MainScene");
     //}
   }
 
@@ -166,7 +169,9 @@ export default class MainScene extends Phaser.Scene {
 }
 
   public goNews(){
+    this.scene.wake("news");
     this.scene.bringToTop('news');
+    
   }
 
   startRaiseAccount(pointer, gameObject, account: financialAccount, direction: number){
@@ -284,7 +289,8 @@ export default class MainScene extends Phaser.Scene {
 
 
   nextDay(pointer, gameobject){
-    this.day += 1;
+    this.day -= 1;
+    this.countDown.text = "Weeks Left: "+ this.day;
     this.Savings = Phaser.Math.RoundTo(((1.05)*this.Savings), -2);
     //this.stockB.price = Phaser.Math.RoundTo((this.market*this.stockB.price), -2);
     this.updateMarket();

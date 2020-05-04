@@ -65,7 +65,7 @@ export default class store extends Phaser.Scene {
         this.exitSign.setInteractive({ useHandCursor: true })
         .on('pointerdown', () => this.exit(this, this.exit) );
 
-        this.checkingText = this.add.text(550, 20, "Checking: $" + 90);
+        this.checkingText = this.add.text(525, 20, "Checking: $" + 90);
         this.scene.get("MainScene").events.on("updateChecking", this.updateChecking, this);
     }
 
@@ -85,6 +85,8 @@ export default class store extends Phaser.Scene {
 
     exit(pointer, gameObject){
         this.scene.bringToTop('MainScene');    
+        this.scene.sleep("store");
+        this.scene.wake("MainScene");
     }
 
     updateChecking(data){
@@ -95,6 +97,9 @@ export default class store extends Phaser.Scene {
 
     win(){
         this.scene.bringToTop("winScene");
+        this.scene.sleep("store");
+        this.scene.wake("winScene");
+
     }
 
     update() {
