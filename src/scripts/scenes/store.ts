@@ -21,8 +21,7 @@ export default class store extends Phaser.Scene {
 
 
     create() {
-        this.registry.events.on('changedata', this.updateChecking, this);
-        this.Checking = this.registry.get("Checking");
+        this.Checking = 90;
 
         this.background = this.add.image(0, 0, "frogStore");
         this.background.setOrigin(0, 0);
@@ -60,14 +59,16 @@ export default class store extends Phaser.Scene {
         this.exitSign.setInteractive({ useHandCursor: true })
         .on('pointerdown', () => this.exit(this, this.exit) );
 
-        this.checkingText = this.add.text(550, 20, "Checking: $" + 100);
+        this.checkingText = this.add.text(550, 20, "Checking: $" + 90);
         this.scene.get("MainScene").events.on("updateChecking", this.updateChecking, this);
     }
 
     buyFrog(price, pointer, gameObject){
-        this.events.emit("buyFrog1", price);  
-        this.Checking -= price;
-        this.checkingText.text = "Checking: $" + this.Checking;
+        if(this.Checking>=price){
+            this.events.emit("buyFrog1", price);  
+            this.Checking -= price;
+            this.checkingText.text = "Checking: $" + this.Checking;
+        }
     }
 
     exit(pointer, gameObject){

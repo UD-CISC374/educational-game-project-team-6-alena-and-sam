@@ -64,10 +64,6 @@ export default class MainScene extends Phaser.Scene {
     this.dragon = new Dragon(this, "dragon", this.scale.width/8, this.scale.height/1.3);
     this.dragon.scale = 0.5;
 
-    this.add.image(this.scale.width/2 + this.scale.width/3 + 20, this.scale.height/2 + this.scale.height/3 - 20, "jesterFrog");
-    this.add.text(this.scale.width/2 + this.scale.width/4 + 10, this.scale.height/2 + this.scale.height/9 + 3, "Price: $5,000");
-    this.add.text(this.scale.width/2 + this.scale.width/4 + 25, this.scale.height/2 + this.scale.height/3 + 25, "JESTER FROG");
-
     /* creating financial account amount displays*/
     /* constructing financial accounts*/
     this.stockA = new financialAccount(this, 'stockA', 50, 0, 10, 1, -0.5);
@@ -107,7 +103,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.coin = this.add.sprite(this.scale.width/2 + this.scale.width/5, this.scale.height/2 + this.scale.height/3, "coin");
     this.coin.play("coinSpin");
-    this.add.text(this.scale.width/2 + this.scale.width/5 - 40, this.scale.height/2 + this.scale.height/3, "BUY FROG");
+    this.add.text(this.scale.width/2 + this.scale.width/5 - 40, this.scale.height/2 + this.scale.height/3, "FROG STORE");
     this.coin.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buyFrog(this, this.coin) );
 
     this.tutorial = new Array(4);
