@@ -14,6 +14,7 @@ export default class MainScene extends Phaser.Scene {
   private day;
   private dayButton;
   private coin;
+  private countDown;
 
 
   tutorial: Array<Phaser.GameObjects.Text>;
@@ -54,7 +55,7 @@ export default class MainScene extends Phaser.Scene {
     this.add.text(300, 300, "next week");
     this.dayButton.scale = 0.1;
     this.dayButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.nextDay(this, this.dayButton) );
-    this.day = 0;
+    this.day = 26;
 
     //this.newsButton = this.add.image(350, 350, "news");
     //this.newsButton.scale = 0.2;
@@ -73,6 +74,7 @@ export default class MainScene extends Phaser.Scene {
      //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
     this.BarChecking = this.add.bitmapText(300, 0, "pixelFont", "Checking: $"+ this.Checking, 16);
     this.BarSavings = this.add.bitmapText(300, 20, "pixelFont", "Savings: $"+ this.Savings, 16);
+    this.countDown = this.add.bitmapText(500, 20, "pixelFont", "Weeks Left: "+ this.day, 16);
 
     /*arrows start*/
 
@@ -225,7 +227,8 @@ export default class MainScene extends Phaser.Scene {
 
 
   nextDay(pointer, gameobject){
-    this.day += 1;
+    this.day -= 1;
+    this.countDown.text = "Weeks Left: "+ this.day;
     this.Savings = Phaser.Math.RoundTo(((1.05)*this.Savings), -2);
     //this.stockB.price = Phaser.Math.RoundTo((this.market*this.stockB.price), -2);
     this.updateMarket();
