@@ -66,8 +66,8 @@ export default class MainScene extends Phaser.Scene {
 
     /* creating financial account amount displays*/
     /* constructing financial accounts*/
-    this.stockA = new financialAccount(this, 'stockA', 50, 0, 10, 1, -0.5);
-    this.stockB = new financialAccount(this, 'stockB', 175, 0, 25, 5, -1);
+    this.stockA = new financialAccount(this, 'stockA', 50, 0, 10, 1, -0.5, 20);
+    this.stockB = new financialAccount(this, 'stockB', 175, 0, 25, 5, -1, 5);
 
      //this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
      //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
@@ -187,8 +187,16 @@ export default class MainScene extends Phaser.Scene {
   }
 
   updateMarket(){
-    this.stockA.updatePrice();
-    this.stockB.updatePrice();
+    if (this.stockA.updatePrice()) {
+      this.events.emit("stockCrash", this.stockA.name);  
+    }
+    if (this.stockB.updatePrice()) {
+      this.events.emit("stockCrash", this.stockB.name);  
+    }
+    let eventCheck = Phaser.Math.Between(1, 100);
+        if(eventCheck <= 1){
+            this.marketCrash();
+        }
   }
 
   updateAccounts(){
@@ -198,8 +206,11 @@ export default class MainScene extends Phaser.Scene {
     this.stockB.refresh();
   }
 
-  stockCrash(){
+  marketCrash(){
+    this.stockA.price = 0.1*(this.stockA.price);
     this.stockB.price = 0.1*(this.stockB.price);
+    console.log("market crashed");
+    this.goNews();
   }
 
   /*randomEvent(){
@@ -221,7 +232,7 @@ export default class MainScene extends Phaser.Scene {
       this.tutorialCount += 1;
       this.stepTutorial(this.tutorialCount);
     }
-    this.goNews();
+    //this.goNews();
   }
 
 

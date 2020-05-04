@@ -4,6 +4,8 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     price: number;
     priceVel: number;
     priceAccel: number;
+
+    volatility: number;
     
     held: boolean;
     name: string;
@@ -11,7 +13,7 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     down: Phaser.GameObjects.Sprite;
     display: Phaser.GameObjects.BitmapText;
 
-    constructor(scene: Phaser.Scene, name: string, x: number, y: number, price: number, priceVel: number, priceAccel: number) {
+    constructor(scene: Phaser.Scene, name: string, x: number, y: number, price: number, priceVel: number, priceAccel: number, volatility: number) {
         super(scene, x, y, 'account');
         scene.add.existing(this);
         this.name = name;
@@ -19,6 +21,8 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         this.price = price;
         this.priceVel = priceVel;
         this.priceAccel = priceAccel;
+
+        this.volatility = volatility;
 
         this.held = false;
         this.count = 0;
@@ -46,7 +50,8 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
 
     updatePrice() {
         this.priceAccel = Phaser.Math.Between(-4, 5);
-        this.randomEvent();
+        let crash = this.randomEvent();
+        //console.log("crash = " + crash);
         this.priceVel = this.priceVel + this.priceAccel;
         if(this.price + this.priceVel > 1){
             this.price = this.price + this.priceVel;
@@ -54,12 +59,18 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         else{
             this.price = 1;
         }
+        return crash;
     }
 
     randomEvent() {
         let eventCheck = Phaser.Math.Between(1, 100);
-        if(eventCheck <= 1){
+        if(eventCheck <= this.volatility){
             this.price = 0.1*this.price; //stock crash
+            console.log(this.name + " crashed");
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
@@ -68,6 +79,6 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     }
 
     refresh() {
-        this.display.text = this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + this.price + "\n Number owned: "+ this.count;
+        this.display.text = this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + Phaser.Math.RoundTo(this.price, -2) + "\n Number owned: "+ this.count;
     }
 }
