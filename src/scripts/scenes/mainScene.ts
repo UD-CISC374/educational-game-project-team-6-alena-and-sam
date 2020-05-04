@@ -111,7 +111,7 @@ export default class MainScene extends Phaser.Scene {
     this.tutorial = new Array(4);
 
     this.add.text(this.scale.width/8, this.scale.height/2 - 10, "OBJECTIVE: Save up enough money to buy all 5 frogs!");
-    this.tutorial[0] = this.add.text(this.scale.width/8, this.scale.height/3, "Use the arrows to move money from your checking account\ninto your stock portfolio!");
+    this.tutorial[0] = this.add.text(this.scale.width/8, this.scale.height/3, "Use the arrows next to the accounts to move money \nfrom your checking account into your stock portfolio!");
     this.tutorial[1] = this.add.text(this.scale.width/8, this.scale.height/3, "When you're satisfied with how your money is distributed,\nclick 'next week'!");
     this.tutorial[2] = this.add.text(this.scale.width/8, this.scale.height/3, "The stock market fluctuates,\nand so does the money in your stock portfolio!");
     this.tutorial[3] = this.add.text(this.scale.width/8, this.scale.height/3, "Check out the frog store! Your goal is to \nbuy all 5 frogs in the next 6 months. \nTo go to the store, click the coin!");

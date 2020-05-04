@@ -9,6 +9,9 @@ Template for designing educational Phaser Games
 //frog spirit by Snabisch on opengameart.org
 //coin by irmirx on opengameart.org
 //rocks by Écrivain on opengameart.org
+//X by unirail on opengameart.org
+//dragon by Alena
+//frog store by Sam using Microsoft Paint
 
 # Important Files
 

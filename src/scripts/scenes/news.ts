@@ -20,8 +20,8 @@ export default class news extends Phaser.Scene {
         this.background.setOrigin(0, 0);
         this.background.scale = 1.3;
         
-        this.backButton = this.add.image(this.scale.width/2 + this.scale.width/3, 350, "arrow");
-        this.backButton.scale = 0.17;
+        this.backButton = this.add.image(this.scale.width/2 + this.scale.width/3, 350, "X");
+        this.backButton.scale = 0.75;
         this.backButton.angle = 180;
         this.backButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.goMain(this, this.backButton) );
         this.scene.get("MainScene").events.on("stockCrash", this.stockCrash, this);
