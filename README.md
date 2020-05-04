@@ -8,6 +8,7 @@ Template for designing educational Phaser Games
 //Sun by dimonija on opengameart.org
 //frog spirit by Snabisch on opengameart.org
 //coin by irmirx on opengameart.org
+//rocks by Écrivain on opengameart.org
 
 # Important Files
 
