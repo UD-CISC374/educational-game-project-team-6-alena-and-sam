@@ -32,8 +32,10 @@ export default class news extends Phaser.Scene {
     }
 
     stockCrash(stockName: string) {
+        //this.scene.reload();
+        this.scene.wake();
         this.scene.bringToTop();
-        //console.log("stockCrash called within news");
+        console.log("stockCrash called within news");
         this.add.text(this.scale.width/2, 60, stockName + " crashed");
     }
 

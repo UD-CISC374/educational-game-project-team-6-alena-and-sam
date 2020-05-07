@@ -253,7 +253,7 @@ export default class MainScene extends Phaser.Scene {
       this.events.emit("stockCrash", this.stockB.name);  
     }
     if (this.stockC.updatePrice()) {
-      this.events.emit("stockCrash", this.stockC.name);  
+      this.events.emit("stockCrash", this.stockC.name); 
     }
     let eventCheck = Phaser.Math.Between(1, 100);
         if(eventCheck <= 1){

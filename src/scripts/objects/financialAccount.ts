@@ -53,7 +53,7 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     updatePrice() {
         this.priceAccel = Phaser.Math.Between(-4, 5);
         let crash = this.randomEvent();
-        //console.log("crash = " + crash);
+        console.log("crash = " + crash);
         this.priceVel = this.priceVel + this.priceAccel;
         if(this.price + this.priceVel > 1){
             this.price = this.price + this.priceVel;
