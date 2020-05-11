@@ -7,6 +7,8 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     priceVel: number;
     priceAccel: number;
 
+    prevPrice: number;
+
     volatility: number;
     
     held: boolean;
@@ -24,12 +26,18 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         this.priceVel = priceVel;
         this.priceAccel = priceAccel;
 
+        this.prevPrice = price - priceVel;
+
         this.volatility = volatility;
 
         this.held = false;
         this.count = 0;
 
-        this.display = scene.add.bitmapText(x - 30, y - 25, "pixelFont", this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + this.price + "\n Number owned: "+ this.count, 16);
+        this.display = scene.add.bitmapText(x - 30, y - 25, "pixelFont", 
+                                            this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) 
+                                            + "\n Stock Price: $" + this.price 
+                                            + "\n Number owned: "+ this.count
+                                            + "\n Change: " + Phaser.Math.RoundTo((price - this.prevPrice)/this.prevPrice*100, -2) + "%", 16);
 
         this.up = scene.add.sprite(x - 42, y - 15, 'arrow');
         this.up.scale = 0.05;
@@ -51,6 +59,7 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     }
 
     updatePrice() {
+        this.prevPrice = this.price;
         this.priceAccel = Phaser.Math.Between(-4, 5);
         let crash = this.randomEvent();
         console.log("crash = " + crash);
@@ -81,6 +90,9 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     }
 
     refresh() {
-        this.display.text = this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) + "\n Stock Price: $" + Phaser.Math.RoundTo(this.price, -2) + "\n Number owned: "+ this.count;
+        this.display.text = this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) 
+                            + "\n Stock Price: $" + this.price 
+                            + "\n Number owned: "+ this.count
+                            + "\n Change: " + Phaser.Math.RoundTo((this.price - this.prevPrice)/this.prevPrice*100, -2) + "%";
     }
 }
