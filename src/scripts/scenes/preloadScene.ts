@@ -5,11 +5,12 @@ export default class PreloadScene extends Phaser.Scene {
 
   preload() {
     this.load.bitmapFont("pixelFont", "assets/font.png", "assets/font.xml");
-    this.load.bitmapFont("DragonFont", "assets/DragonFont.png", "assets/DragonFont.fnt");
+    this.load.bitmapFont("Firefont", "assets/FireFont.png", "assets/FireFont.fnt");
     
     this.load.image("bat", "assets/theBAT.png");
     this.load.image("dragon", "assets/images/dragon_boi.png");
     this.load.spritesheet("arrow", "assets/arrow_button_idle.png", {frameWidth: 637, frameHeight:308});
+    this.load.spritesheet("arrowActive", "assets/arrow_button_active.png", {frameWidth: 637, frameHeight:308});
     this.load.image("cave", "assets/fossil_cave.jpg");
     this.load.image("day", "assets/moon_sun_star.png");
     this.load.image("jesterFrog", "assets/jester frog.PNG");
