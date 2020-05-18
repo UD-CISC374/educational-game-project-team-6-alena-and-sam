@@ -56,7 +56,7 @@ export default class MainScene extends Phaser.Scene {
     this.background.scale = 0.65;
 
     this.dayButton = this.add.image(300, 300, "day");
-    this.add.text(300, 300, "next week");
+    this.add.bitmapText(300, 300, "Firefont", "Next Week", 16);
     this.dayButton.scale = 0.1;
     this.dayButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.nextDay(this, this.dayButton) );
     this.day = 26;
@@ -78,42 +78,58 @@ export default class MainScene extends Phaser.Scene {
 
      //this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
      //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
-    this.BarChecking = this.add.bitmapText(30, this.scale.height/4 + 34, "pixelFont", "Checking: $"+ this.Checking, 16);
-    this.countDown = this.add.bitmapText(300, this.scale.height/4, "pixelFont", "Weeks Left: "+ this.day, 16);
+    this.BarChecking = this.add.bitmapText(30, this.scale.height/4 + 34, "pixelFont", "Checking: $" + this.Checking, 16);
+    this.countDown = this.add.bitmapText(300, this.scale.height/4, "Firefont", "Weeks Left: "+ this.day, 16);
 
     /*arrows start*/
 
     this.stockA.up.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseAccount(this, this.stockA.up, this.stockA, 1))
-    .on('pointerup', () => this.stopRaiseAccount(this, this.stockA.up, this.stockA));
+    .on('pointerdown', () => this.stockA.up.setTexture("arrowActive"))
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockA.up, this.stockA))
+    .on('pointerup', () => this.stockA.up.setTexture("arrow"));
 
     this.stockA.down.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseAccount(this, this.stockA.down, this.stockA, -1) )
-    .on('pointerup', () => this.stopRaiseAccount(this, this.stockA.down, this.stockA));
+    .on('pointerdown', () => this.stockA.down.setTexture("arrowActive"))
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockA.down, this.stockA))
+    .on('pointerup', () => this.stockA.down.setTexture("arrow"));
 
     this.stockB.up.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseAccount(this, this.stockB.up, this.stockB, 1) )
-    .on('pointerup', () => this.stopRaiseAccount(this, this.stockB.up, this.stockB));
+    .on('pointerdown', () => this.stockB.up.setTexture("arrowActive"))
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockB.up, this.stockB))
+    .on('pointerup', () => this.stockB.up.setTexture("arrow"));
 
     this.stockB.down.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseAccount(this, this.stockB.down, this.stockB, -1) )
-    .on('pointerup', () => this.stopRaiseAccount(this, this.stockB.down, this.stockB));
+    .on('pointerdown', () => this.stockB.down.setTexture("arrowActive"))
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockB.down, this.stockB))
+    .on('pointerup', () => this.stockB.down.setTexture("arrow"));
 
     this.stockC.up.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseAccount(this, this.stockC.up, this.stockC, 1) )
-    .on('pointerup', () => this.stopRaiseAccount(this, this.stockC.up, this.stockC));
+    .on('pointerdown', () => this.stockC.up.setTexture("arrowActive"))
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockC.up, this.stockC))
+    .on('pointerup', () => this.stockC.up.setTexture("arrow"));
 
     this.stockC.down.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseAccount(this, this.stockC.down, this.stockC, -1) )
-    .on('pointerup', () => this.stopRaiseAccount(this, this.stockC.down, this.stockC));
+    .on('pointerdown', () => this.stockC.down.setTexture("arrowActive"))
+    .on('pointerup', () => this.stopRaiseAccount(this, this.stockC.down, this.stockC))
+    .on('pointerup', () => this.stockC.down.setTexture("arrow"));
 
     this.savings.up.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseSavings(this, this.savings.up, this.savings, 1) )
-    .on('pointerup', () => this.stopRaiseSavings(this, this.savings.up, this.savings));
+    .on('pointerdown', () => this.savings.up.setTexture("arrowActive"))
+    .on('pointerup', () => this.stopRaiseSavings(this, this.savings.up, this.savings))
+    .on('pointerup', () => this.savings.up.setTexture("arrow"));
 
     this.savings.down.setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.startRaiseSavings(this, this.savings.down, this.savings, -1) )
-    .on('pointerup', () => this.stopRaiseSavings(this, this.savings.down, this.savings));
+    .on('pointerdown', () => this.savings.down.setTexture("arrowActive"))
+    .on('pointerup', () => this.stopRaiseSavings(this, this.savings.down, this.savings))
+    .on('pointerup', () => this.savings.down.setTexture("arrow"));
 
     /*arrows end*/
 
@@ -126,12 +142,12 @@ export default class MainScene extends Phaser.Scene {
 
     this.coin = this.add.sprite(this.scale.width/2 + this.scale.width/5, this.scale.height/2 + this.scale.height/3, "coin");
     this.coin.play("coinSpin");
-    this.add.text(this.scale.width/2 + this.scale.width/5 - 40, this.scale.height/2 + this.scale.height/3, "FROG STORE");
+    this.add.bitmapText(this.scale.width/2 + this.scale.width/5 - 40, this.scale.height/2 + this.scale.height/3, "Firefont", "FROG STORE", 16);
     this.coin.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.buyFrog(this, this.coin) );
 
     this.tutorial = new Array(4);
 
-    this.add.text(this.scale.width/8, 20, "OBJECTIVE: Save up enough money to buy all 5 frogs!");
+    this.add.bitmapText(this.scale.width/8, 20, "Firefont", "OBJECTIVE: Save up enough money to buy all 5 frogs!", 16);
     this.tutorial[0] = this.add.text(this.scale.width/8, 47, "Use the arrows next to the accounts to move money \nfrom your checking account into your stock portfolio!");
     this.tutorial[1] = this.add.text(this.scale.width/8, 47, "When you're satisfied with how your money is distributed,\nclick 'next week'!");
     this.tutorial[2] = this.add.text(this.scale.width/8, 47, "The stock market fluctuates,\nand so does the money in your stock portfolio!");
