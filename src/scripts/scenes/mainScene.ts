@@ -16,9 +16,14 @@ export default class MainScene extends Phaser.Scene {
   private dayButton;
   private coin;
   private countDown;
+  private Frog1;
+  private Frog2;
+  private Frog3;
+  private Frog4;
+  private Frog5;
 
 
-  tutorial: Array<Phaser.GameObjects.Text>;
+  tutorial: Array<Phaser.GameObjects.BitmapText>;
   tutorialCount = 0;
 
   //private savings: financialAccount;
@@ -140,6 +145,42 @@ export default class MainScene extends Phaser.Scene {
       repeat: -1
     });
 
+    this.anims.create({
+      key: "frogHop",
+      frames: this.anims.generateFrameNumbers("frog1", {start:0, end: 2}), 
+      frameRate: 3, 
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "frogHop2",
+      frames: this.anims.generateFrameNumbers("frog2", {start:0, end: 2}), 
+      frameRate: 3, 
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "frogHop3",
+      frames: this.anims.generateFrameNumbers("frog3", {start:0, end: 2}), 
+      frameRate: 3, 
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "frogHop4",
+      frames: this.anims.generateFrameNumbers("frog4", {start:0, end: 2}), 
+      frameRate: 3, 
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "frogHop5",
+      frames: this.anims.generateFrameNumbers("frog5", {start:0, end: 2}), 
+      frameRate: 3, 
+      repeat: -1
+    });
+
+
     this.coin = this.add.sprite(this.scale.width/2 + this.scale.width/5, this.scale.height/2 + this.scale.height/3, "coin");
     this.coin.play("coinSpin");
     this.add.bitmapText(this.scale.width/2 + this.scale.width/5 - 40, this.scale.height/2 + this.scale.height/3, "Firefont", "FROG STORE", 16);
@@ -148,11 +189,11 @@ export default class MainScene extends Phaser.Scene {
     this.tutorial = new Array(4);
 
     this.add.bitmapText(this.scale.width/8, 20, "Firefont", "OBJECTIVE: Save up enough money to buy all 5 frogs!", 16);
-    this.tutorial[0] = this.add.text(this.scale.width/8, 47, "Use the arrows next to the accounts to move money \nfrom your checking account into your stock portfolio!");
-    this.tutorial[1] = this.add.text(this.scale.width/8, 47, "When you're satisfied with how your money is distributed,\nclick 'next week'!");
-    this.tutorial[2] = this.add.text(this.scale.width/8, 47, "The stock market fluctuates,\nand so does the money in your stock portfolio!");
-    this.tutorial[3] = this.add.text(this.scale.width/8, 47, "Check out the frog store! Your goal is to \nbuy all 5 frogs in the next 6 months. \nTo go to the store, click the coin!");
-    this.tutorial[4] = this.add.text(this.scale.width/3, 47, "YOU BOUGHT THE FROG");
+    this.tutorial[0] = this.add.bitmapText(this.scale.width/8, 47, "Firefont", "Use the arrows next to the accounts to move money \nfrom your checking account into your stock portfolio!", 16);
+    this.tutorial[1] = this.add.bitmapText(this.scale.width/8, 47, "Firefont", "When you're satisfied with how your money is distributed,\nclick 'next week'!", 16);
+    this.tutorial[2] = this.add.bitmapText(this.scale.width/8, 47, "Firefont", "The stock market fluctuates,\nand so does the money in your stock portfolio!", 16);
+    this.tutorial[3] = this.add.bitmapText(this.scale.width/8, 47, "Firefont", "Check out the frog store! Your goal is to \nbuy all 5 frogs in the next 6 months. \nTo go to the store, click the coin!", 16);
+    this.tutorial[4] = this.add.bitmapText(this.scale.width/3, 47, "Firefont", "YOU BOUGHT THE FROG", 16);
 
 
     for (var i = 1; i < 5; i ++){
@@ -182,6 +223,36 @@ export default class MainScene extends Phaser.Scene {
   buyFrog1(data){
     this.Checking -= data;
     this.updateAccounts();
+    if(data == 50){
+      this.Frog1 = this.add.sprite(this.scale.width-40 , this.scale.height-40, "frog1");
+      this.Frog1.setScale(3, 3);
+      this.Frog1.play("frogHop")
+    };
+    if(data == 500){
+      this.Frog2 = this.add.sprite(this.scale.width-80 , this.scale.height-80, "frog2");
+      this.Frog2.setScale(3, 3);
+      this.Frog2.play("frogHop2")
+    };
+
+    if(data == 5000){
+      this.Frog3 = this.add.sprite(this.scale.width-80 , this.scale.height-30, "frog3");
+      this.Frog3.setScale(3, 3);
+      this.Frog3.play("frogHop3")
+    };
+
+    if(data == 25000){
+      this.Frog4 = this.add.sprite(this.scale.width-150 , this.scale.height-80, "frog4");
+      this.Frog4.setScale(4, 4);
+      this.Frog4.play("frogHop4")
+    };
+
+    if(data == 50000){
+      this.Frog5 = this.add.sprite(this.scale.width-105 , this.scale.height-40, "frog5");
+      this.Frog5.setScale(1, 1);
+      this.Frog5.play("frogHop5")
+    };
+
+
 }
 
   public goNews(){
