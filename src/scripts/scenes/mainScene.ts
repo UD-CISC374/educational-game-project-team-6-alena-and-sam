@@ -163,7 +163,7 @@ export default class MainScene extends Phaser.Scene {
     //}
   }
 
-  buyFrog1(data){
+  buyFrog1(data: number){
     this.Checking -= data;
     this.updateAccounts();
 }

@@ -6,6 +6,7 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     price: number;
     priceVel: number;
     priceAccel: number;
+    change: number;
 
     prevPrice: number;
 
@@ -15,7 +16,8 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
     name: string;
     up: Phaser.GameObjects.Sprite;
     down: Phaser.GameObjects.Sprite;
-    display: Phaser.GameObjects.BitmapText;
+    display: Phaser.GameObjects.Text;
+    changeDisplay: Phaser.GameObjects.Text;
 
     constructor(scene: Phaser.Scene, name: string, image: string, x: number, y: number, price: number, priceVel: number, priceAccel: number, volatility: number) {
         super(scene, x, y, image);
@@ -33,11 +35,28 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         this.held = false;
         this.count = 0;
 
-        this.display = scene.add.bitmapText(x - 30, y - 25, "pixelFont", 
-                                            this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) 
-                                            + "\n Stock Price: $" + this.price 
-                                            + "\n Number owned: "+ this.count
-                                            + "\n Change: " + Phaser.Math.RoundTo((price - this.prevPrice)/this.prevPrice*100, -2) + "%", 16);
+        this.change = Phaser.Math.RoundTo((price - this.prevPrice)/this.prevPrice*100, -2);
+
+        this.display = scene.make.text({
+            x: x - 30, 
+            y: y - 25, 
+            text: this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) 
+                + "\n Stock Price: $" + Phaser.Math.RoundTo(this.price, -2) 
+                + "\n Number owned: "+ this.count
+                + "\n Change: ",
+            style: {
+                font: '13px Arial',
+                fill: 'white'}
+            });
+        this.changeDisplay = scene.make.text({
+            x: x + 25, 
+            y: y + 20, 
+            text: this.change + "%",
+            style: {
+                font: '13px Arial',
+                fill: this.changeColor()}
+            });    
+
 
         this.up = scene.add.sprite(x - 42, y - 15, 'arrow');
         this.up.scale = 0.05;
@@ -70,6 +89,7 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         else{
             this.price = 1;
         }
+        this.change = Phaser.Math.RoundTo((this.price - this.prevPrice)/this.prevPrice*100, -2);
         return crash;
     }
 
@@ -85,14 +105,25 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         }
     }
 
+    changeColor() {
+        if (this.change >= 0) {
+            return 'green';
+        }
+        else {
+            return 'red';
+        }
+    }
+
     toString() {
         return this.name;
     }
 
     refresh() {
         this.display.text = this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) 
-                            + "\n Stock Price: $" + this.price 
+                            + "\n Stock Price: $" + Phaser.Math.RoundTo(this.price, -2)
                             + "\n Number owned: "+ this.count
-                            + "\n Change: " + Phaser.Math.RoundTo((this.price - this.prevPrice)/this.prevPrice*100, -2) + "%";
+                            + "\n Change: ";
+        this.changeDisplay.text = this.change + "%";
+        this.changeDisplay.setColor(this.changeColor());
     }
 }
