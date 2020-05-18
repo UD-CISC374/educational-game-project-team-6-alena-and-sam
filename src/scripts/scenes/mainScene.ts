@@ -21,6 +21,7 @@ export default class MainScene extends Phaser.Scene {
   private Frog3;
   private Frog4;
   private Frog5;
+  private transition;
 
 
   tutorial: Array<Phaser.GameObjects.BitmapText>;
@@ -65,6 +66,10 @@ export default class MainScene extends Phaser.Scene {
     this.dayButton.scale = 0.1;
     this.dayButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.nextDay(this, this.dayButton) );
     this.day = 26;
+    this.transition = this.add.sprite(300, 250, "fire");
+    this.transition.setScale(20, 15);
+    this.transition.play("fireBurn");
+    this.transition.setVisible(false);
 
     //this.newsButton = this.add.image(350, 350, "news");
     //this.newsButton.scale = 0.2;
@@ -177,6 +182,13 @@ export default class MainScene extends Phaser.Scene {
       key: "frogHop5",
       frames: this.anims.generateFrameNumbers("frog5", {start:0, end: 2}), 
       frameRate: 3, 
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "fireBurn",
+      frames: this.anims.generateFrameNumbers("fire", {start:0, end: 2}), 
+      frameRate: 12, 
       repeat: -1
     });
 
@@ -382,6 +394,20 @@ export default class MainScene extends Phaser.Scene {
     //this.stockB.price = Phaser.Math.RoundTo((this.market*this.stockB.price), -2);
     this.updateMarket();
     this.Checking += 100;
+    this.transition.setVisible(true);
+    this.transition.play("fireBurn");
+    
+
+    this.time.addEvent({
+      delay: 500,
+      callback: ()=>{
+          this.transition.setVisible(false);
+      },
+      loop: false
+  })
+
+
+
     this.updateAccounts();
     this.events.emit("updateChecking", this.Checking); 
     if (this.tutorialCount < 3) {

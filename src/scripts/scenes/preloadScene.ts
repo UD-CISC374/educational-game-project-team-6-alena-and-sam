@@ -16,6 +16,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.spritesheet("frog3", "assets/Frog3.png", {frameWidth: 32, frameHeight:32});
     this.load.spritesheet("frog4", "assets/Frog4.png", {frameWidth: 32, frameHeight:32});
     this.load.spritesheet("frog5", "assets/Frog5.png", {frameWidth: 32, frameHeight:32});
+    this.load.spritesheet("fire", "assets/FireTransition.png", {frameWidth: 32, frameHeight:32});
     this.load.image("cave", "assets/fossil_cave.jpg");
     this.load.image("day", "assets/moon_sun_star.png");
     this.load.image("jesterFrog", "assets/jester frog.PNG");
