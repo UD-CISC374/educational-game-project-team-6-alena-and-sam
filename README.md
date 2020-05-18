@@ -12,6 +12,12 @@ Template for designing educational Phaser Games
 //X by unirail on opengameart.org
 //dragon by Alena
 //frog store by Sam using Microsoft Paint
+//fake newspaper by Sam using fodey at https://www.fodey.com/generators/newspaper/snippet.asp  
+//winscene by Sam using Microsoft Paint
+//animated frogs by Sam using Piskel at https://www.piskelapp.com/
+//bat by Sam using Microsoft Paint
+//firefont by Sam using Littera at http://kvazars.com/littera/
+//firefont texture by Sam using Microsoft Paint
 //material colored icons by Babajan on opengameart.org
 
 # Important Files
