@@ -48,5 +48,6 @@ Good luck on your frog collecting!
 //background music by FoxSynergy on opengameart.com
 //fire sound by themightyglider on opengameart.
 //win music by remaxim on opengameart.com
+//icons and favicon from https://game-icons.net/
 
 
