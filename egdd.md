@@ -15,11 +15,9 @@ meta:
 
 # Overview
 
-*Notes written in italics must be deleted in the final version.*
-
 ## Elevator Pitch
  
-An enterprising dragon gets a job in the city and uses the money to buy stocks and accumulate wealth.
+An enterprising dragon takes advantage of the coronavirus lockdown to get a job in the city (over the internet, nobody knows you’re a dragon!) and accumulate wealth.
  
 ## Influences (Brief)
  
@@ -40,13 +38,9 @@ An enterprising dragon gets a job in the city and uses the money to buy stocks a
   - Explanation: There was a meme where a dragon realized he could hoard anything he wanted, and decided to hoard frogs.  
   
 ## Core Gameplay Mechanics (Brief)
-  
-- Invest in 401K
+
 - Buy/Sell Stock
-- Buy frogs/frog supplies for frog hoard
-- Start businesses (?)
-- Do taxes (?) (correctly or incorrectly - that’s up to you)
-- If the dragon evades taxes he gets audited by the IRS and put in federal prison
+- Buy frogs
  
 # Learning Aspects
  
@@ -66,9 +60,9 @@ This would be assigned as supplementary to a wealth management course.
 
 ## Learning Objectives
  
-- By the end of the lesson, students will be able to list the benefits of a 401K plan
-- By the end of the lesson, players will be able to identify different types of stocks
-- By the end of the lesson, players will be able to file taxes (?)
+- By the end of the lesson, students will be able to sort stocks that are doing well from those that are not.
+- By the end of the lesson, players will be able to identify a stock crash
+- By the end of the lesson, players will be able to budget for small and large expenses
  
 ## Prerequisite Knowledge
  
@@ -83,7 +77,6 @@ The game is the assessment.  If the dragon goes bankrupt, you fail.
  
 - How many games do you know that teach how taxes and 401ks work?
 - We’re talking about a DRAGON that’s using ECONOMICS to expand his hoard. 
-- You can commit tax fraud in this game (but you will get in trouble for it)
  
 # Player Interaction Patterns and Modes
  
@@ -96,68 +89,55 @@ This is a game for one person. It’s you vs the world. You get to decide how ad
 - Single player is the only mode
  
 # Gameplay Objectives
- 
-- Keep your taxes in order
-    - Description: You do not want the IRS to come knocking at your door. They got Al Capone on tax fraud, they’ll get you too.
-    - Alignment: This aligns with the objective of players being able to file taxes.
+
 - Build Wealth:
     - Description: Use your investment and saving options to build wealth over time
     - Alignment: This aligns with the objective of players being able to budget and invest
 - Hoard Frogs:
-    - Description: The dragon doesn’t just want to save money, he wants to spend some of it on his hoard of frogs. This brings the dragon a lot of joy and increases his productivity.
+    - Description: The dragon doesn’t just want to save money, he wants to spend some of it on his hoard of frogs. This brings the dragon a lot of joy.
     - Alignment: This aligns with the objective of players being able to budget
-- Save for retirement:
-    - Description: The dragon doesn’t intend to work forever.  He wants to retire someday..
-    - Alignment: This aligns with the objective of players being able to budget and save for the future
 
 # Procedures/Actions
  
-Type things into the fields of various tax forms
-Type amounts of money to invest into things like 401k
-Buttons to choose between different stocks
-Buttons to select how many frogs to buy and which kinds
+Click up arrow to buy a stock
+Hold up arrow to buy many stocks
+Click down arrow to sell a stock
+Hold down arrow to sell many stocks
+Button to go to next week
+Button to go to frog store
+Button to buy a frog
  
 # Rules
 
-The dragon gets paid $375 every week as a starting salary
+The dragon gets paid $100 every week as a starting salary
 If the player runs out of money, he loses
-The player must buy food to avoid starving
-If you commit crimes, you go to federal prison
 Buy frogs to expand the hoard.  You must obtain all types of frogs to win.
 Buy stocks and invest to increase funds for frogs
-There can be random events such as a computer breaking or a cave-in.
-You must save enough money for retirement so the dragon can enjoy his golden years with his frogs.  
+There can be random events such as a stock crash. 
 
 # Objects/Entities
 
 The dragon has a bunch of variables that you need to optimize for
-There are tax forms that you need to fill out
 There are cards for the different types of stocks the dragon can invest in that display information about those stocks
 There are frogs that just kind of hop around the dragon’s cave aimlessly once he buys them, the number of frogs influences the dragon’s happiness
  
 ## Core Gameplay Mechanics (Detailed)
- 
-- Invest in 401K: You can add money to the dragon’s 401K account to legally avoid paying taxes and grow his funds.  The money is in a retirement account, which the dragon is not old enough to pull funds from, but his employer matches 100% percent of his contributions.  
-- Buy/Sell Stock: The dragon is able to purchase blue chip stocks (McDonkalds),income stocks (Allmart), penny stocks (Startup Inc.), and cyclical stocks (Boing Airlines).  Due to the coronavirus economy, the cyclical stocks have a very low price, and even the other stocks are cheaper.  The dragon must decide when he thinks the market is at its lowest and when it will grow to make the most of his investments.  
-- Buy frogs for frog hoard: The dragon likes frogs.  He can buy different types of frogs.  Fancier frogs are more expensive.  He is saving up for the most expensive frog, the rare desert rain frog.  
-- Do taxes (correctly or incorrectly - that’s up to you):  The dragon receives a W-2 form from his employer.  He will also get a 1099-INT form if he earns dividends from income stock.  Then he fills out a 1040 form.  This includes information such as his filing status and any deductions or dependents.  
-- If the dragon evades taxes he gets audited by the IRS and put in federal prison.  His frog assets are seized and the player loses the game.
+   
+- Buy/Sell Stock: The dragon is able to purchase Stock A, Stock B, and Stock C.  Each has a seperate volatility, and each gains or loses independently of the others.  The dragon must decide when and how much to invest in each one.   
+- Buy frogs for frog hoard: The dragon likes frogs.  He can buy different types of frogs.  Fancier frogs are more expensive.  He is saving up for the most expensive frog, the rare golden panama frog.  
     
-## Feedback
-
-*Explicitly describe what visual/audio/etc. indicators there that give players feedback on their progress towards their gameplay objectives (and ideally the learning objectives).*
 
 ## Feedback
 
-The player can view retirement savings, stock values, number of each frog species, and other funds in the dragon’s cave.  The retirement savings has a bar that must be filled.  The player must fill the bar and also get at least one of each frog.  
+The player can view stock prices, number of each stock, amount of money in each stock, and frogs in the dragon’s cave.  The player must get at least one of each frog.  
 
-So long as the player does not go bankrupt or get put in federal prison, the player is able to continue playing.  In the long term, a player either wins by saving enough money and buying all the frogs, or loses by breaking the law or going bankrupt.  This is the long term feedback.  
+So long as the player does not go bankrupt, the player is able to continue playing.  In the long term, a player either wins by saving enough money and buying all the frogs, or loses by failing to do so.  This is the long term feedback.  
  
 # Story and Gameplay
  
 ## Presentation of Rules
  
-Cutscenes present the basic rules about buying food and the dragon wanting to retire.  Door-to-door salesmen present rules about stocks and frogs as they peddle their wares.  
+A basic text tutorial runs at the top of the screen to aid players in understanding the rules.   
  
 ## Presentation of Content
 
@@ -173,15 +153,15 @@ Follow Drecko as he dons a suit and tie and enters the workforce.
 
 ## Story (Detailed)
 
-*Go into as much detail as needs be. Spare no detail. Use Mind Mapping software to get your point across*
+A dragon realizes that he can use his wealth to purchase stocks and increase his funds, which can then be used to buy frogs.  He throws himself into achieveing this, and soon selects three stocks he likes and opens a savings account at the local bank.  
 
 ## Gameplay (Brief)
 
-*The Summary version of below*
+The player buys and sells stocks in order to purchase frogs from the frog store with their profits.  
 
 ## Gameplay (Detailed)
 
-*Go into as much detail as needs be. Spare no detail. Combine this with the game mechanics section above*
+The player begins with $100 in the dragon cave.  There, the player can use the stone arrows next to each stock or account to divide their money into their chosen investment(s).  The tutorial text at the top informs them of this.  The player then is encouraged to click the "next week" button to go to the next week.  Each time the "next week" button is pressed, the value of each stock fluctuates and the savings account gains 0.05% interest.  Also the scene temporarily catches on fire.  Once the player has accumulated enough money, they can go to the frog store.  Here they can click a button placed beside a frog to buy that frog.  The buttons are labeled "buy".  They can exit back to the cave by clicking the large red exit sign.  Once all five frogs have been purchased, the win screen appears with the purchased frogs and some digital confetti.  A counter counts down from 104 weeks (2 years) to challenge the player to buy all the frogs in this time frame, but the game can be played even with negative weeks on the counter.  The counter is just to challenge the players who want it.  
 
 # Assets Needed
  
@@ -193,16 +173,19 @@ The aesthetics should be cute and silly. The game should be the kind that doesn�
 ## Graphical
  
 - Characters List
-  - Dragon: Needs a happy face, a neutral face, and a sad face that correspond to his happiness.
-  - Door to door stock salesmen
+  - Dragon
+    Frog 1
+    Frog 2
+    Frog 3
+    Frog 4
+    Frog 5
 - Textures:
-  - *breathing fire*
-  - *frogs hopping*
+  - *arrows*
 - Environment Art/Textures:
   - *Cave*
-  - *Computer screen*
-  - *Entrance of cave*
-  - *Frog pond*
+  - *Win scene*
+  - *Frog Store*
+  - *FIRE*
 	
  
  
@@ -210,15 +193,13 @@ The aesthetics should be cute and silly. The game should be the kind that doesn�
 
  
 - Music List (Ambient sound)
-  - In cave: Calm music, Occasional frog croak
-  - Cave entrance: Perky music, Birds chirp
-  - Frog Pond: Happy music, Frequent frog croaks
-  - On computer: Calm Music, Typing sounds
+  - In cave: Calm music
+  - Frog Store: Same as cave
+  - Win Scene: Victory sound
     
 - Sound List (SFX)
-  - Buy frog or stock: Frog sound
-  - Save for retirement: Jingling coins sound
-  - Pay taxes: Patriotic sound
+  - Random after purchasing frogs: Frog sound
+  - Next Week: FIRE
 
  
  
