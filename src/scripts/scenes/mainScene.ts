@@ -251,6 +251,15 @@ export default class MainScene extends Phaser.Scene {
   buyFrog1(data: number){
     this.Checking -= data;
     this.updateAccounts();
+
+    let croak = this.sound.add("croak");
+    this.time.addEvent({
+      delay: 10000,
+      callback: ()=>{
+          croak.play();
+      },
+      loop: true
+  })
     if(data == 50){
       this.Frog1 = this.add.sprite(this.scale.width-40 , this.scale.height-40, "frog1");
       this.Frog1.setScale(3, 3);
@@ -414,6 +423,7 @@ export default class MainScene extends Phaser.Scene {
     this.transition.play("fireBurn");
     
     let fireSound = this.sound.add("fireSound");
+    
 
     //play background music
     fireSound.play();
