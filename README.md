@@ -16,7 +16,7 @@ Template for designing educational Phaser Games
 //winscene by Sam using Microsoft Paint
 //animated frogs by Sam using Piskel at https://www.piskelapp.com/
 //animated fire by Sam using Piskel at https://www.piskelapp.com/
-//bat by Sam using Microsoft Paint
+//bat by Sam using Piksel at https://www.piskelapp.com/
 //firefont by Sam using Littera at http://kvazars.com/littera/
 //firefont texture by Sam using Microsoft Paint
 //material colored icons by Babajan on opengameart.org
