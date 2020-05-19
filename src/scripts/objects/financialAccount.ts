@@ -38,8 +38,8 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
         this.change = Phaser.Math.RoundTo((price - this.prevPrice)/this.prevPrice*100, -2);
 
         this.display = scene.make.text({
-            x: x - 30, 
-            y: y - 25, 
+            x: x - 38, 
+            y: y - 20, 
             text: this.name + ": $"+ Phaser.Math.RoundTo(this.count*this.price, -2) 
                 + "\n Stock Price: $" + Phaser.Math.RoundTo(this.price, -2) 
                 + "\n Number owned: "+ this.count
@@ -49,8 +49,8 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
                 fill: 'white'}
             });
         this.changeDisplay = scene.make.text({
-            x: x + 25, 
-            y: y + 20, 
+            x: x + 18, 
+            y: y + 25, 
             text: this.change + "%",
             style: {
                 font: '13px Arial',
@@ -58,12 +58,12 @@ export default class FinancialAccount extends Phaser.GameObjects.Sprite {
             });    
 
 
-        this.up = scene.add.sprite(x - 42, y - 15, 'arrow');
-        this.up.scale = 0.05;
+        this.up = scene.add.sprite(x - 47, y - 10, 'arrow');
+        this.up.scale = 0.04;
         this.up.angle = 90;
 
-        this.down = scene.add.sprite(x - 40, y + 20, 'arrow');
-        this.down.scale = 0.05;
+        this.down = scene.add.sprite(x - 45, y + 25, 'arrow');
+        this.down.scale = 0.04;
         this.down.angle = 270;
     }
 
