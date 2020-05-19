@@ -37,6 +37,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio("bgmusic", "assets/Night.mp3");
     this.load.audio("fireSound", "assets/flame.ogg");
     this.load.audio("croak", "assets/mutant_frog-1.ogg");
+    this.load.audio("winner", "assets/frogWin.wav");
   }
 
   create() {

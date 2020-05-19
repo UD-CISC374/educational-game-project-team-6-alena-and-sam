@@ -70,6 +70,8 @@ export default class MainScene extends Phaser.Scene {
 
     this.scene.get("store").events.on("buyFrog1", this.buyFrog1, this);
 
+    this.scene.get("store").events.on("stopMusic", this.stopMusic, this);
+
     //this.market = 1.12;
 
     this.background = this.add.image(0, 0, "cave");
@@ -80,7 +82,7 @@ export default class MainScene extends Phaser.Scene {
     this.add.bitmapText(300, 300, "Firefont", "Next Week", 16);
     this.dayButton.scale = 0.1;
     this.dayButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.nextDay(this, this.dayButton) );
-    this.day = 26;
+    this.day = 104;
     this.transition = this.add.sprite(300, 250, "fire");
     this.transition.setScale(20, 15);
     this.transition.play("fireBurn");
@@ -219,7 +221,7 @@ export default class MainScene extends Phaser.Scene {
     this.tutorial[0] = this.add.bitmapText(this.scale.width/8, 47, "Firefont", "Use the arrows next to the accounts to move money \nfrom your checking account into your stock portfolio!", 16);
     this.tutorial[1] = this.add.bitmapText(this.scale.width/8, 47, "Firefont", "When you're satisfied with how your money is distributed,\nclick 'next week'!", 16);
     this.tutorial[2] = this.add.bitmapText(this.scale.width/8, 47, "Firefont", "The stock market fluctuates,\nand so does the money in your stock portfolio!", 16);
-    this.tutorial[3] = this.add.bitmapText(this.scale.width/8, 47, "Firefont", "Check out the frog store! Your goal is to \nbuy all 5 frogs in the next 6 months. \nTo go to the store, click the coin!", 16);
+    this.tutorial[3] = this.add.bitmapText(this.scale.width/8, 47, "Firefont", "Check out the frog store! Your goal is to \nbuy all 5 frogs in the next 2 years. \nTo go to the store, click the coin!", 16);
     this.tutorial[4] = this.add.bitmapText(this.scale.width/3, 47, "Firefont", "YOU BOUGHT THE FROG", 16);
 
 
@@ -443,8 +445,11 @@ export default class MainScene extends Phaser.Scene {
       this.stepTutorial(this.tutorialCount);
     }
     //this.goNews();
-  }
+    }
 
+    stopMusic(){
+      this.bgmusic.stop();
+    }
 
 
   update() {

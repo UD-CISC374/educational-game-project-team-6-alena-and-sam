@@ -1,6 +1,31 @@
-# educational-phaser-game-template
+# If You Give a Dragon Economics (He's Going to Want Some Stocks)
 
-Template for designing educational Phaser Games
+By Alena Gusakov and Samantha Rosenthal
+
+# Blurb
+Drecko the Dragon has lived through the rise and fall of the gold standard. He understands that times are a-changing and that the wealth-hoarding scene isn’t what it used to be, so he gets a job in the city and uses the money to buy stocks and accumulate wealth. Drecko knows that money can’t buy happiness, but it can buy frogs, so he takes to collecting those.  Join Drecko as he learns how to navigate the stock market and make sound investments to accumulate all five frogs from the frog store! 
+
+# Instructions
+Use the stone arrows in the middle of the screen next to each stock to raise and lower the amount of each stock you own.  When you are happy with the distribution of your wealth, click the button labeled "next week".  You will be paid $100 each week, which is seperate from your winnings or losses from the stock market.  The value of your stocks will fluctuate each week.  Watch out for stock crashes!  
+
+When you have enough money, you can go to the frog store by clicking the big coin.  Here you can buy frogs.  The price of each frog is written beneath it.  Click the "buy" button to buy a frog.  Remember that you buy things from your CHECKING ACCOUNT, not your stocks.  You may need to sell stocks to afford a frog.  
+
+When you have all five frogs, you win!  Try to complete the game in 26 weeks, or take longer to experiment with your approach.  The game continues just the same when the week counter hits zero.  
+
+Good luck on your frog collecting!
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Citations
 //Arrows by Unsolved Rubiks on opengameart.org
@@ -21,34 +46,7 @@ Template for designing educational Phaser Games
 //firefont texture by Sam using Microsoft Paint
 //material colored icons by Babajan on opengameart.org
 //background music by FoxSynergy on opengameart.com
-//fire sound by themightyglider on opengameart.com
+//fire sound by themightyglider on opengameart.
+//win music by remaxim on opengameart.com
 
 
-# Important Files
-
-These files are for coding your game:
-
-* [src/scripts/game.ts](src/scripts/game.ts): The starting file of your game.
-
-These files are for documenting your game:
- 
-* [egdd.md](egdd.md): The educational game design document describing this game in more depth.
-
-These [package.json](package.json) settings are for configuring the metadata of your game and should be updated:
-
-* `name`: This must be a lower-case version of your repository name on GitHub, without spaces.
-* `description`: Give a quick, one sentence summary of your game.
-* `game`:
-    * `url`: Change this to be the EXACT name of your repository on GitHub.
-    * `shortName`: Choose a short name for your game for [Progressive Web App](https://medium.com/@amberleyjohanna/seriously-though-what-is-a-progressive-web-app-56130600a093) packaging.
-    * `name`: Choose a longer, complete name for your game.
-* `repository`:
-    * `url`: Change this URL to be a link to your GitHub repository.
-* `homepage`: Change this URL to be a link to the final version of your game's EGDD.
-* `contributors`: This should be an array (list) of strings, where each string is like `"Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)"`.
-
-You should edit the following images to create icons for your game, if it gets installed as a [Progressive Web App](https://medium.com/@amberleyjohanna/seriously-though-what-is-a-progressive-web-app-56130600a093):
-
-* [src/assets/icons/icons-192.png](src/assets/icons/icons-192.png): This is a 192x192 pixel version of your game's icon.
-* [src/assets/icons/icons-512.png](src/assets/icons/icons-512.png): This is a 512x512 pixel version of your game's icon.
-* [src/assets/icons/favicon.ico](src/assets/icons/favicon.ico): The [Favicon](https://en.wikipedia.org/wiki/Favicon) for your game.

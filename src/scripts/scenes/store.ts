@@ -96,6 +96,9 @@ export default class store extends Phaser.Scene {
 
 
     win(){
+        let winSound = this.sound.add("winner");
+        winSound.play();
+        this.events.emit("stopMusic"); 
         this.scene.bringToTop("winScene");
         this.scene.sleep("store");
         this.scene.wake("winScene");
