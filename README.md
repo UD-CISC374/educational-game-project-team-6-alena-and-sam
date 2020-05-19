@@ -14,6 +14,10 @@ When you have all five frogs, you win!  Try to complete the game in 26 weeks, or
 
 Good luck on your frog collecting!
 
+# Screenshot
+
+![alt text](src/assets/screenshots/large.png)
+
 # Video
 
 Video at https://youtu.be/n-VZudPnR0o
