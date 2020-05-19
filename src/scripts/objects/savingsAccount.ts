@@ -40,6 +40,10 @@ export default class SavingsAccount extends Phaser.GameObjects.Sprite {
         }
     }
 
+    updateAmount() {
+        this.amount += this.amount*this.interest;
+    }
+
     refresh() {
         this.display.text =  "Savings: $"+ Phaser.Math.RoundTo(this.amount, -2) + "\n Interest Rate: " + this.interest*100 + "%";
     }
