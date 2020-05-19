@@ -102,7 +102,7 @@ export default class MainScene extends Phaser.Scene {
     this.stockB = new financialAccount(this, 'stockB', 'bat', 435, this.scale.height/3 + 40, 25, 5, -1, 5).setScale(5.8, 5.8);
     this.stockC = new financialAccount(this, 'stockC', 'bat', 615, this.scale.height/3 + 40, 13, 2, 2, 2).setScale(5.8, 5.8);
     this.stockB.flipX = true;
-    this.savings = new savingsAccount(this, 'bank', 80, this.scale.height/3 + 40, 0, 0.05).setScale(1.45, 1);
+    this.savings = new savingsAccount(this, 'bank', 80, this.scale.height/3 + 40, 0, 0.0005).setScale(1.45, 1);
 
      //this.Bar401 = this.add.bitmapText(25, 0, "pixelFont", "Savings Account: $"+ this.savings.amount, 16);
      //this.BarB = this.add.bitmapText(175, 0, "pixelFont", "Stock : $"+ this.stockB.amount, 16);
@@ -427,6 +427,7 @@ export default class MainScene extends Phaser.Scene {
     this.countDown.text = "Weeks Left: "+ this.day;
     this.savings.updateAmount();
     //this.stockB.price = Phaser.Math.RoundTo((this.market*this.stockB.price), -2);
+    this.Savings = 1.0005*this.Savings;
     this.updateMarket();
     this.Checking += 100;
     this.transition.setVisible(true);
