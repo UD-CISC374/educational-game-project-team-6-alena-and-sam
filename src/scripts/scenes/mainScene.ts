@@ -22,6 +22,7 @@ export default class MainScene extends Phaser.Scene {
   private Frog4;
   private Frog5;
   private transition;
+  private bgmusic;
 
 
   tutorial: Array<Phaser.GameObjects.BitmapText>;
@@ -46,6 +47,20 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this.scene.bringToTop();
+
+    this.bgmusic = this.sound.add("bgmusic");
+    var musicConfig = {
+      mute: false,
+      volume: 1,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: true,
+      delay:0
+    };
+    //play background music
+    this.bgmusic.play(musicConfig);
+
     
     /* checking  start */
     this.Checking = 100;
@@ -397,7 +412,10 @@ export default class MainScene extends Phaser.Scene {
     this.transition.setVisible(true);
     this.transition.play("fireBurn");
     
+    let fireSound = this.sound.add("fireSound");
 
+    //play background music
+    fireSound.play();
     this.time.addEvent({
       delay: 500,
       callback: ()=>{

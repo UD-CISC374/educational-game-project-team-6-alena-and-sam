@@ -20,6 +20,9 @@ Template for designing educational Phaser Games
 //firefont by Sam using Littera at http://kvazars.com/littera/
 //firefont texture by Sam using Microsoft Paint
 //material colored icons by Babajan on opengameart.org
+//background music by FoxSynergy on opengameart.com
+//fire sound by themightyglider on opengameart.com
+
 
 # Important Files
 
